@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Избранное</title>
+    <link rel="stylesheet" href="/style/profile-menu.css">
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+
+        <div class="row">
+            <!-- Меню профиля -->
+            <div class="col-lg-3 mb-4">
+                <div th:replace="~{fragments/profile-menu::profile-menu}"></div>
+            </div>
+
+            <!-- Контент страницы -->
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h4 class="mb-0">
+                            <i class="bi bi-heart me-2"></i>Избранное
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Заглушка -->
+                        <div class="text-center py-5">
+                            <div class="coming-soon-icon text-muted mb-3">
+                                <i class="bi bi-tools"></i>
+                            </div>
+                            <h3 class="text-muted mb-3">Функционал в разработке</h3>
+                            <p class="text-muted mb-4" style="max-width: 500px; margin: 0 auto;">
+                                Раздел "Избранное" скоро будет доступен! Здесь вы сможете сохранять
+                                понравившиеся удобрения, продавцов и рекомендации для быстрого доступа.
+                            </p>
+
+                            <div class="row mt-4">
+                                <div class="col-md-6 mb-3">
+                                    <div class="card feature-card h-100">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-bag-heart text-primary fs-1 mb-3"></i>
+                                            <h5>Удобрения</h5>
+                                            <p class="text-muted small">Сохраняйте интересные удобрения в избранное</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card feature-card h-100">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-shop text-success fs-1 mb-3"></i>
+                                            <h5>Продавцы</h5>
+                                            <p class="text-muted small">Отмечайте проверенных поставщиков</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <p class="text-muted mb-3">А пока вы можете:</p>
+                                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                                    <a th:href="@{/fertilizers/catalog}" class="btn btn-outline-primary">
+                                        <i class="bi bi-grid me-2"></i>Изучить каталог удобрений
+                                    </a>
+                                    <a th:href="@{/sellers}" class="btn btn-outline-success">
+                                        <i class="bi bi-people me-2"></i>Найти продавцов
+                                    </a>
+                                    <a th:href="@{/profile/analyses}" class="btn btn-outline-info">
+                                        <i class="bi bi-moisture me-2"></i>Мои анализы почвы
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Прогресс разработки -->
+                            <div class="mt-5">
+                                <div class="d-flex align-items-center justify-content-center mb-2">
+                                    <span class="badge bg-warning me-2">В разработке</span>
+                                    <small class="text-muted">Ожидаемая дата запуска: скоро</small>
+                                </div>
+                                <div class="progress" style="height: 6px; max-width: 300px; margin: 0 auto;">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                                         style="width: 65%; background-color: #3A7D44;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Информация о будущем функционале -->
+                        <div class="row mt-5">
+                            <div class="col-12">
+                                <h5 class="text-center mb-4">
+                                    <i class="bi bi-lightbulb me-2"></i>Что будет в разделе "Избранное"
+                                </h5>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="bi bi-bookmark-check text-success fs-4 me-3"></i>
+                                            <div>
+                                                <h6>Быстрый доступ</h6>
+                                                <p class="text-muted small mb-0">Сохраняйте важные товары и рекомендации</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="bi bi-bell text-warning fs-4 me-3"></i>
+                                            <div>
+                                                <h6>Уведомления</h6>
+                                                <p class="text-muted small mb-0">Получайте оповещения об акциях и наличии</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="bi bi-graph-up text-info fs-4 me-3"></i>
+                                            <div>
+                                                <h6>Сравнение</h6>
+                                                <p class="text-muted small mb-0">Сравнивайте цены и характеристики</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

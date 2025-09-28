@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Отзывы о продавце</title>
+    <style>
+        .review-card {
+            transition: transform 0.2s ease;
+        }
+        .review-card:hover {
+            transform: translateY(-2px);
+        }
+        .rating-stars {
+            color: #ffc107;
+        }
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a th:href="@{/}">Главная</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a th:href="@{/sellers}">Продавцы</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a th:href="@{/sellers/{id}(id=${sellerId})}">Продавец</a>
+                </li>
+                <li class="breadcrumb-item active">Отзывы</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <h2 class="mb-3">
+                            <i class="bi bi-chat-dots text-primary me-2"></i>
+                            Отзывы о продавце
+                        </h2>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="display-4 fw-bold text-primary"
+                                     th:text="${averageRating}">4.5</div>
+                                <div class="rating-stars mb-2">
+                                    <span th:each="i: ${#numbers.sequence(1, 5)}">
+                                        <i th:class="${i <= averageRating} ? 
+                                                   'bi bi-star-fill' : 
+                                                   'bi bi-star'"></i>
+                                    </span>
+                                </div>
+                                <div class="text-muted">Средний рейтинг</div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="display-4 fw-bold text-success"
+                                     th:text="${reviewCount}">120</div>
+                                <div class="mb-2">
+                                    <i class="bi bi-chat-text fs-3 text-success"></i>
+                                </div>
+                                <div class="text-muted">Всего отзывов</div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <a th:href="@{/reviews/seller/{id}/add(id=${sellerId})}"
+                                   class="btn btn-primary btn-lg">
+                                    <i class="bi bi-plus-circle me-2"></i>
+                                    Добавить отзыв
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div th:if="${not #lists.isEmpty(reviews)}">
+                    <h4 class="mb-4">
+                        <i class="bi bi-list-ul me-2"></i>
+                        Все отзывы
+                    </h4>
+
+                    <div th:each="review : ${reviews}" class="card review-card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start">
+                                <div class="user-avatar me-3">
+                                    <i class="bi bi-person fs-4 text-muted"></i>
+                                </div>
+
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <h6 class="mb-0" th:text="${review.user.username}">Иван Петров</h6>
+                                            <small class="text-muted"
+                                                   th:text="${#temporals.format(review.createdAt, 'dd.MM.yyyy HH:mm')}">
+                                                15.01.2024 14:30
+                                            </small>
+                                        </div>
+                                        <div class="rating-stars">
+                                            <span th:each="i: ${#numbers.sequence(1, 5)}">
+                                                <i th:class="${i <= review.rating} ? 
+                                                           'bi bi-star-fill' : 
+                                                           'bi bi-star'"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <p class="mb-0" th:text="${review.comment}">
+                                        Отличный продавец! Быстрая доставка, качественный товар.
+                                        Рекомендую всем покупать удобрения у этого продавца.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div th:if="${#lists.isEmpty(reviews)}" class="text-center py-5">
+                    <i class="bi bi-chat-dots display-4 text-muted"></i>
+                    <h4 class="mt-3">Пока нет отзывов</h4>
+                    <p class="text-muted">Будьте первым, кто оставит отзыв об этом продавце</p>
+                    <a th:href="@{/reviews/seller/{id}/add(id=${sellerId})}"
+                       class="btn btn-primary mt-2">
+                        <i class="bi bi-plus-circle me-2"></i>Добавить отзыв
+                    </a>
+                </div>
+
+                <div th:if="${not #lists.isEmpty(reviews)}" class="d-flex justify-content-center mt-4">
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#">Предыдущая</a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Следующая</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

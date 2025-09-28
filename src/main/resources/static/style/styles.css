@@ -1,0 +1,64 @@
+
+:root {
+    --primary-color: #3A7D44;
+    --secondary-color: #2E5A88;
+    --light-color: #F8F9FA;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.hero-section {
+    background: url("images/banner2.png");
+
+    /*background: linear-gradient(rgba(0, 0, 0, 0.6),url("/images/banner2.png");*/
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+
+}
+
+.logo {
+    height: 50px;
+}
+
+.step-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+.fertilizer-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.review-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.form-label {
+    color: black;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+footer {
+    background-color: var(--light-color);
+}
+.profile-card {
+    border: 1px solid #2c5530;
+}
+

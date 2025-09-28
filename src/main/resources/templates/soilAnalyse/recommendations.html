@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Recommendations</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <section th:replace="~{fragments/recommendations::recommendations}"></section>
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h3 class="text-center mb-4">Рекомендации по улучшению почвы</h3>
+            <div th:if="${not #lists.isEmpty(soilRecommendations)}" class="mb-5">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-lightbulb text-warning me-2 fs-4"></i>
+                    <h4 class="mb-0">Что нужно добавить в почву</h4>
+                </div>
+                <div class="row">
+                    <div th:each="rec : ${soilRecommendations}" class="col-md-6 col-lg-4 mb-3">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h5 class="card-title mb-0 text-primary" th:text="${rec.elementName}">Азот</h5>
+                                    <span class="badge"
+                                          th:class="${rec.priority.name() == 'HIGH'} ? 'bg-danger' :
+                 (${rec.priority.name() == 'MEDIUM'} ? 'bg-warning' : 'bg-info')"
+                                          th:text="${rec.priority.name() == 'HIGH'} ? 'Срочно' :
+             (${rec.priority.name() == 'MEDIUM'} ? 'Желательно' : 'Опционально')"></span>
+                                </div>
+                                <p class="text-muted small mb-2" th:text="${rec.reason}">
+                                    Низкое содержание в почве
+                                </p>
+                                <div class="bg-light p-2 rounded mb-2">
+                                    <div class="d-flex justify-content-between small">
+                                        <span>Текущий уровень:</span>
+                                        <strong th:text="${rec.currentLevel} + ' ' + ${rec.unit}">25 mg/kg</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between small">
+                                        <span>Целевой уровень:</span>
+                                        <strong class="text-success" th:text="${rec.targetLevel} + ' ' + ${rec.unit}">40-60
+                                            mg/kg</strong>
+                                    </div>
+                                    <div class="d-flex justify-content-between small">
+                                        <span>Необходимо добавить:</span>
+                                        <strong class="text-danger" th:text="${rec.deficitAmount} + ' ' + ${rec.unit}">15
+                                            mg/kg</strong>
+                                    </div>
+                                </div>
+                                <div th:if="${not #lists.isEmpty(rec.solutions)}">
+                                    <strong class="small">Способы внесения:</strong>
+                                    <ul class="small mb-0 mt-1 ps-3">
+                                        <li th:each="solution : ${rec.solutions}" th:text="${solution}">Внесение
+                                            аммиачной селитры
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div th:if="${not #lists.isEmpty(recommendedFertilizers)}">
+                        <h4 class="mb-4">
+                            <i class="bi bi-bag-check text-success me-2"></i>
+                            Рекомендуемые удобрения
+                        </h4>
+                        <div class="row">
+                            <div th:each="fert : ${recommendedFertilizers}" class="col-md-6 col-lg-4 mb-4">
+                                <div th:replace="~{fragments/fertilizerCard::fertilizerCard}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:if="${#lists.isEmpty(recommendedFertilizers) and not #lists.isEmpty(soilRecommendations)}"
+                         class="text-center py-5">
+                        <i class="bi bi-search display-4 text-muted"></i>
+                        <h4 class="mt-3">Подбираем удобрения...</h4>
+                        <p class="text-muted">Рекомендуемые удобрения появятся здесь после анализа ваших данных</p>
+                        <a th:href="@{/catalog}" class="btn btn-outline-primary mt-2">
+                            <i class="bi bi-grid me-2"></i>Посмотреть весь каталог
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<section th:fragment="recommendations">
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <h4 class="text-center mb-4">Баланс питательных веществ</h4>
+
+            <div class="mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="fw-bold">Кислотность (pH):</span>
+                    <th:block th:switch="${true}">
+                        <span th:case="${soilAnalysis.ph != null and soilAnalysis.ph < 6.0}" class="text-danger">Слишком кислая</span>
+                        <span th:case="${soilAnalysis.ph != null and soilAnalysis.ph > 7.5}" class="text-danger">Слишком щелочная</span>
+                        <span th:case="${soilAnalysis.ph != null and soilAnalysis.ph >= 6.0 and soilAnalysis.ph <= 7.5}" class="text-success">Оптимальная</span>
+                        <span th:case="*" class="text-muted">Не указано</span>
+                    </th:block>
+                </div>
+
+                <div class="position-relative" style="height: 25px; background: #f8f9fa; border-radius: 5px;">
+                    <div class="position-absolute h-100 bg-success opacity-25"
+                         style="left: 42.9%; width: 10.7%; border-radius: 5px;">
+                    </div>
+
+                    <div class="progress position-relative h-100" style="background: transparent;">
+                        <div class="progress-bar"
+                             th:class="${soilAnalysis.ph != null} ?
+                           (${soilAnalysis.ph < 6.0} ? 'bg-danger' :
+                            (${soilAnalysis.ph > 7.5} ? 'bg-warning' : 'bg-success')) : 'bg-secondary'"
+                             th:style="${soilAnalysis.ph != null} ?
+                          'width: ' + ${(soilAnalysis.ph / 14) * 100} + '%' : 'width: 0%'">
+                        </div>
+                    </div>
+
+                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
+                        <strong th:text="${soilAnalysis.ph != null} ? ${#numbers.formatDecimal(soilAnalysis.ph, 1, 1)} : 'N/A'">
+                            6.5
+                        </strong>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-1">
+                    <small>0</small>
+                    <small class="text-success fw-bold">6.0-7.5 (оптимум)</small>
+                    <small>14</small>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="fw-bold">Азот (N): <span th:text="${soilAnalysis.nitrogen}">25</span> mg/kg</span>
+                    <span th:text="${soilAnalysis.nitrogen < 20} ? 'Дефицит' :
+                                          (${soilAnalysis.nitrogen > 40} ? 'Избыток' : 'Норма')">
+                                Норма
+                            </span>
+                </div>
+
+                <div class="progress" style="height: 20px;">
+                    <div class="progress-bar"
+                         th:class="${soilAnalysis.nitrogen < 20} ? 'bg-danger' :
+                                          (${soilAnalysis.nitrogen > 40} ? 'bg-warning' : 'bg-success')"
+                         th:style="'width: ' + ${(soilAnalysis.nitrogen / 200) * 100} + '%'"
+                         style="width: 12.5%">
+                        <span th:text="${soilAnalysis.nitrogen}">25</span> mg/kg
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="fw-bold">Фосфор (P): <span th:text="${soilAnalysis.phosphorus}">15</span> mg/kg</span>
+                    <span th:text="${soilAnalysis.phosphorus < 15} ? 'Дефицит' :
+                                          (${soilAnalysis.phosphorus > 30} ? 'Избыток' : 'Норма')">
+                                Норма
+                            </span>
+                </div>
+                <div class="progress" style="height: 20px;">
+                    <div class="progress-bar"
+                         th:class="${soilAnalysis.phosphorus < 15} ? 'bg-danger' :
+                                          (${soilAnalysis.phosphorus > 30} ? 'bg-warning' : 'bg-success')"
+                         th:style="'width: ' + ${(soilAnalysis.phosphorus / 100) * 100} + '%'"
+                         style="width: 15%">
+                        <span th:text="${soilAnalysis.phosphorus}">15</span> mg/kg
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="fw-bold">Калий (K): <span th:text="${soilAnalysis.potassium}">120</span> mg/kg</span>
+                    <span th:text="${soilAnalysis.potassium < 100} ? 'Дефицит' :
+                                          (${soilAnalysis.potassium > 200} ? 'Избыток' : 'Норма')">
+                                Норма
+                            </span>
+                </div>
+                <div class="progress" style="height: 20px;">
+                    <div class="progress-bar"
+                         th:class="${soilAnalysis.potassium < 100} ? 'bg-danger' :
+                                          (${soilAnalysis.potassium > 200} ? 'bg-warning' : 'bg-success')"
+                         th:style="'width: ' + ${(soilAnalysis.potassium / 300) * 100} + '%'"
+                         style="width: 40%">
+                        <span th:text="${soilAnalysis.potassium}">120</span> mg/kg
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>

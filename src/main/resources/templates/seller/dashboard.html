@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет продавца</title>
+    <style>
+        /* Стили из личного кабинета пользователя */
+        .nav-pills .nav-link {
+            background-color: #f8f9fa;
+            color: #3A7D44;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-pills .nav-link:hover {
+            background-color: #e9f5e9;
+            color: #3A7D44;
+            border-color: #4a7c59;
+            transform: translateX(5px);
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #3A7D44;
+            color: white;
+            border-color: #3A7D44;
+        }
+
+        .nav-pills .nav-link.active:hover {
+            background-color: #3A7D44;
+            color: white;
+            border-color: #3A7D44;
+            transform: none;
+        }
+
+        .nav-pills .nav-link .badge {
+            background-color: #4a7c59 !important;
+            color: white !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-pills .nav-link:hover .badge {
+            background-color: #3A7D44 !important;
+            transform: scale(1.1);
+        }
+
+        .nav-pills .nav-link.active .badge {
+            background-color: #ffffff !important;
+            color: #3A7D44 !important;
+        }
+
+        .nav-pills .nav-link i {
+            transition: color 0.3s ease;
+        }
+
+        .nav-pills .nav-link:hover i {
+            color: #4a7c59;
+        }
+
+        .nav-pills .nav-link.active i {
+            color: white;
+        }
+
+        .btn-outline-primary {
+            color: #3A7D44;
+            border-color: #3A7D44;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #3A7D44;
+            color: white;
+            border-color: #3A7D44;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(44, 85, 48, 0.3);
+        }
+
+        .profile-card {
+            border: 1px solid #e9f5e9;
+            box-shadow: 0 2px 4px rgba(44, 85, 48, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(44, 85, 48, 0.15);
+        }
+
+        .profile-avatar {
+            background: linear-gradient(135deg, #e9f5e9 0%, #d4e8d4 100%);
+            color: #3A7D44;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 3px solid #4a7c59;
+        }
+
+        .badge.bg-primary {
+            background-color: #3A7D44 !important;
+            color: white !important;
+            border: none;
+        }
+
+        .stat-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+
+        .stat-card:hover {
+            border-color: #3A7D44;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+
+        <div class="row">
+            <div class="col-lg-3 mb-4">
+                <div th:replace="~{fragments/seller-profile-menu::seller-profile-menu}"></div>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h4 class="mb-0">
+                            <i class="bi bi-house me-2"></i>Обзор магазина
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Уведомления -->
+                        <div th:if="${success}" class="alert alert-success mb-4">
+                            <i class="bi bi-check-circle me-2"></i>
+                            <span th:text="${success}"></span>
+                        </div>
+
+                        <!-- Статистика -->
+                        <div class="row mb-4">
+                            <div class="col-md-4 mb-3">
+                                <div class="card stat-card text-center h-100">
+                                    <div class="card-body">
+                                        <div class="text-primary mb-2">
+                                            <i class="bi bi-box-seam fs-1"></i>
+                                        </div>
+                                        <h3 th:text="${fertilizers.size()}">15</h3>
+                                        <p class="text-muted mb-0">Товаров в продаже</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card stat-card text-center h-100">
+                                    <div class="card-body">
+                                        <div class="text-warning mb-2">
+                                            <i class="bi bi-star fs-1"></i>
+                                        </div>
+                                        <h3 th:text="${#numbers.formatDecimal(seller.rating, 1, 1)}">4.8</h3>
+                                        <p class="text-muted mb-0">Средний рейтинг</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card stat-card text-center h-100">
+                                    <div class="card-body">
+                                        <div class="text-success mb-2">
+                                            <i class="bi bi-chat-dots fs-1"></i>
+                                        </div>
+                                        <h3 th:text="${reviews.size()}">42</h3>
+                                        <p class="text-muted mb-0">Отзывов</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Информация о магазине -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h5 class="mb-3">
+                                    <i class="bi bi-info-circle me-2"></i>Информация о магазине
+                                </h5>
+                                <div class="mb-2">
+                                    <strong>Контактное лицо:</strong>
+                                    <span th:text="${seller.contactPerson ?: 'Не указано'}">Иван Иванов</span>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Телефон:</strong>
+                                    <span th:text="${seller.phone ?: 'Не указан'}">+7 (999) 999-99-99</span>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Email:</strong>
+                                    <span th:text="${seller.email}">company@mail.com</span>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Город:</strong>
+                                    <span th:text="${seller.city ?: 'Не указан'}">Москва</span>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>На рынке:</strong>
+                                    <span th:text="${seller.yearsOnMarket ?: '0'}">5</span> лет
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="mb-3">
+                                    <i class="bi bi-link-45deg me-2"></i>Ссылки
+                                </h5>
+                                <div class="mb-2">
+                                    <strong>Сайт:</strong>
+                                    <span th:if="${seller.website}">
+                                        <a th:href="@{'https://' + ${seller.website}}"
+                                           target="_blank" class="text-decoration-none">
+                                            <span th:text="${seller.website}">www.company.ru</span>
+                                        </a>
+                                    </span>
+                                    <span th:unless="${seller.website}" class="text-muted">Не указан</span>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Статус:</strong>
+                                    <span th:if="${seller.isActive}" class="badge bg-success">Активен</span>
+                                    <span th:unless="${seller.isActive}" class="badge bg-secondary">Неактивен</span>
+                                </div>
+                                <div class="mb-2">
+                                    <strong>Дата регистрации:</strong>
+                                    <span th:text="${seller.registrationDate != null} ?
+                                              ${seller.registrationDate.toLocalDate()} :
+                                              'Не указана'">2024-01-01</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Последние товары -->
+                        <div class="mb-4">
+                            <h5 class="mb-3">
+                                <i class="bi bi-clock-history me-2"></i>Последние товары
+                            </h5>
+                            <div th:if="${not #lists.isEmpty(fertilizers)}">
+                                <div th:each="fertilizer : ${fertilizers.subList(0, 3)}"
+                                     class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="mb-0" th:text="${fertilizer.name}">Название удобрения</h6>
+                                                <small class="text-muted"
+                                                       th:text="'₽' + ${#numbers.formatDecimal(fertilizer.price, 0, 0)}">1500 руб.</small>
+                                            </div>
+                                            <a th:href="@{/fertilizers/{id}(id=${fertilizer.id})}"
+                                               class="btn btn-outline-primary btn-sm">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${#lists.isEmpty(fertilizers)}" class="text-center py-3">
+                                <i class="bi bi-box text-muted fs-1"></i>
+                                <p class="text-muted">У вас пока нет товаров</p>
+                                <a th:href="@{/fertilizers/add}" class="btn btn-success">
+                                    <i class="bi bi-plus-circle me-2"></i>Добавить первый товар
+                                </a>
+                            </div>
+
+                            <th:block th:if="${fertilizers.size() > 3}">
+                                <div class="text-center mt-3">
+                                    <a th:href="@{/seller-dashboard/fertilizers}" class="btn btn-outline-secondary">
+                                        <i class="bi bi-list-ul me-2"></i>Все товары
+                                        <span class="badge bg-primary ms-1" th:text="${fertilizers.size()}">15</span>
+                                    </a>
+                                </div>
+                            </th:block>
+                        </div>
+
+                        <!-- Последние отзывы -->
+                        <div>
+                            <h5 class="mb-3">
+                                <i class="bi bi-chat me-2"></i>Последние отзывы
+                            </h5>
+                            <div th:if="${not #lists.isEmpty(reviews)}">
+                                <div th:each="review : ${reviews.subList(0, 3)}"
+                                     class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <div class="mb-1">
+                                                    <span th:each="i: ${#numbers.sequence(1, 5)}">
+                                                        <i th:class="${i <= review.rating} ?
+                                                                   'bi bi-star-fill text-warning' :
+                                                                   'bi bi-star text-warning'"></i>
+                                                    </span>
+                                                </div>
+                                                <p class="mb-0 text-muted"
+                                                   th:text="${#strings.abbreviate(review.comment, 100)}">
+                                                    Отличный продавец, быстрая доставка...
+                                                </p>
+                                            </div>
+                                            <small class="text-muted"
+                                                   th:text="${review.createdAt != null} ?
+                                                          ${review.createdAt.toLocalDate()} :
+                                                          'дата не указана'">
+                                                01.01.2024
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${#lists.isEmpty(reviews)}" class="text-center py-3">
+                                <i class="bi bi-chat-dots text-muted fs-1"></i>
+                                <p class="text-muted">Пока нет отзывов</p>
+                            </div>
+
+                            <th:block th:if="${reviews.size() > 3}">
+                                <div class="text-center mt-3">
+                                    <a th:href="@{/seller-dashboard/reviews}" class="btn btn-outline-secondary">
+                                        <i class="bi bi-list-ul me-2"></i>Все отзывы
+                                        <span class="badge bg-primary ms-1" th:text="${reviews.size()}">42</span>
+                                    </a>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

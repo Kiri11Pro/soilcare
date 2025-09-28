@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои отзывы</title>
+    <link rel="stylesheet" href="/style/profile-menu.css">
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+
+        <div class="row">
+            <div class="col-lg-3 mb-4">
+                <div th:replace="~{fragments/profile-menu::profile-menu}"></div>
+            </div>
+
+
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h4 class="mb-0">
+                            <i class="bi bi-chat-dots me-2"></i>Мои отзывы
+                            <span class="badge bg-primary" th:text="${reviews.size()}">5</span>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${not #lists.isEmpty(reviews)}">
+                            <div th:each="review : ${reviews}" class="card mb-3">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <div>
+                                            <h6 class="mb-0">
+                                                <span th:if="${review.fertilizer != null}">
+                                                    Отзыв на удобрение:
+                                                    <span th:text="${review.fertilizer.name}">Название удобрения</span>
+                                                </span>
+                                                <span th:if="${review.seller != null}">
+                                                    Отзыв на продавца:
+                                                    <span th:text="${review.seller.companyName}">Название компании</span>
+                                                </span>
+                                            </h6>
+                                            <small class="text-muted"
+                                                   th:text="${review.createdAt != null} ?
+                                                          ${review.createdAt.toLocalDate()} :
+                                                          'дата не указана'">
+                                                01.01.2024
+                                            </small>
+                                        </div>
+                                        <div class="rating-stars">
+                                            <span th:each="i: ${#numbers.sequence(1, 5)}">
+                                                <i th:class="${i <= review.rating} ?
+                                                           'bi bi-star-fill text-warning' :
+                                                           'bi bi-star text-warning'"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <p class="mb-0" th:text="${review.comment}">
+                                        Текст отзыва...
+                                    </p>
+
+                                    <div class="mt-2">
+                                        <small class="text-muted">
+                                            <span th:if="${review.fertilizer != null}">
+                                                <a th:href="@{/fertilizers/{id}(id=${review.fertilizer.id})}"
+                                                   class="text-decoration-none">
+                                                    <i class="bi bi-link-45deg me-1"></i>Перейти к удобрению
+                                                </a>
+                                            </span>
+                                            <span th:if="${review.seller != null}">
+                                                <a th:href="@{/sellers/{id}(id=${review.seller.id})}"
+                                                   class="text-decoration-none">
+                                                    <i class="bi bi-link-45deg me-1"></i>Перейти к продавцу
+                                                </a>
+                                            </span>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div th:if="${#lists.isEmpty(reviews)}" class="text-center py-5">
+                            <i class="bi bi-chat-dots display-4 text-muted"></i>
+                            <h4 class="mt-3">У вас пока нет отзывов</h4>
+                            <p class="text-muted">Начните оставлять отзывы о покупках</p>
+                            <a th:href="@{/fertilizers/catalog}" class="btn btn-primary mt-2">
+                                <i class="bi bi-grid me-2"></i>Перейти в каталог
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

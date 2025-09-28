@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" href="/style/profile-menu.css">
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-3 mb-4">
+                <div th:replace="~{fragments/profile-menu::profile-menu}"></div>
+            </div>
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h4 class="mb-0">
+                            <i class="bi bi-house me-2"></i>Обзор профиля
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-4 mb-3">
+                                <div class="card stat-card text-center h-100">
+                                    <div class="card-body">
+                                        <div class="text-primary mb-2">
+                                            <i class="bi bi-moisture fs-1"></i>
+                                        </div>
+                                        <h3 th:text="${analyses.size()}">3</h3>
+                                        <p class="text-muted mb-0">Анализов почвы</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card stat-card text-center h-100">
+                                    <div class="card-body">
+                                        <div class="text-warning mb-2">
+                                            <i class="bi bi-star fs-1"></i>
+                                        </div>
+                                        <h3 th:text="${reviews.size()}">5</h3>
+                                        <p class="text-muted mb-0">Оставленных отзывов</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card stat-card text-center h-100">
+                                    <div class="card-body">
+                                        <div class="text-success mb-2">
+                                            <i class="bi bi-calendar fs-1"></i>
+                                        </div>
+                                        <h3 th:text="${#temporals.format(user.registrationDate, 'dd.MM.yyyy')}">
+                                            01.01.2024</h3>
+                                        <p class="text-muted mb-0">Дата регистрации</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5 class="mb-3">
+                                <i class="bi bi-clock-history me-2"></i>Последние анализы
+                            </h5>
+                            <div th:if="${not #lists.isEmpty(recentAnalyses)}">
+                                <div th:each="analysis : ${recentAnalyses}" class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="mb-0">Анализ почвы #<span th:text="${analysis.id}">123</span>
+                                                </h6>
+                                                <small class="text-muted">
+                            <span th:if="${analysis.createdAt != null}"
+                                  th:text="'Анализ от ' + ${analysis.createdAt.toLocalDate()}">
+                                Анализ от 2024-01-01
+                            </span>
+                                                    <span th:if="${analysis.createdAt == null}">
+                                Дата не указана
+                            </span>
+                                                </small>
+                                            </div>
+                                            <a th:href="@{/soilAnalysis/{id}(id=${analysis.id})}"
+                                               class="btn btn-outline-primary btn-sm">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${#lists.isEmpty(recentAnalyses)}" class="text-center py-3">
+                                <i class="bi bi-moisture text-muted fs-1"></i>
+                                <p class="text-muted">У вас пока нет анализов почвы</p>
+                                <a th:href="@{/}" class="btn btn-primary">
+                                    <i class="bi bi-plus-circle me-2"></i>Сделать первый анализ
+                                </a>
+                            </div>
+
+                            <!-- Кнопка "Показать все" если анализов больше 3 -->
+                            <th:block th:if="${analyses.size() > 3}">
+                                <div class="text-center mt-3">
+                                    <a th:href="@{/profile/analyses}" class="btn btn-outline-secondary">
+                                        <i class="bi bi-list-ul me-2"></i>Показать все анализы
+                                        <span class="badge bg-primary ms-1" th:text="${analyses.size()}">5</span>
+                                    </a>
+                                </div>
+                            </th:block>
+                        </div>
+
+                        <div>
+                            <h5 class="mb-3">
+                                <i class="bi bi-chat me-2"></i>Последние отзывы
+                            </h5>
+                            <div th:if="${not #lists.isEmpty(recentReviews)}">
+                                <div th:each="review : ${recentReviews}" class="card mb-2">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <div class="mb-1">
+                                                    <span th:each="i: ${#numbers.sequence(1, 5)}">
+                                                        <i th:class="${i <= review.rating} ?
+                                                                   'bi bi-star-fill text-warning' :
+                                                                   'bi bi-star text-warning'"></i>
+                                                    </span>
+                                                </div>
+                                                <p class="mb-0 text-muted"
+                                                   th:text="${#strings.abbreviate(review.comment, 100)}">
+                                                    Отличный товар, всем рекомендую...
+                                                </p>
+                                            </div>
+                                            <small class="text-muted"
+                                                   th:text="${review.createdAt != null} ?
+                                                          ${review.createdAt.toLocalDate()} :
+                                                          'дата не указана'">
+                                                01.01.2024
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${#lists.isEmpty(recentReviews)}" class="text-center py-3">
+                                <i class="bi bi-chat-dots text-muted fs-1"></i>
+                                <p class="text-muted">У вас пока нет отзывов</p>
+                            </div>
+
+                            <th:block th:if="${reviews.size() > 3}">
+                                <div class="text-center mt-3">
+                                    <a th:href="@{/profile/reviews}" class="btn btn-outline-secondary">
+                                        <i class="bi bi-list-ul me-2"></i>Показать все отзывы
+                                        <span class="badge bg-primary ms-1" th:text="${reviews.size()}">8</span>
+                                    </a>
+                                </div>
+                            </th:block>
+                            <div th:if="${param.updated}" class="alert alert-success">
+                                <i class="bi bi-check-circle me-2"></i>Профиль успешно обновлен
+                            </div>
+
+                            <div th:if="${error}" class="alert alert-danger">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                <span th:text="${error}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

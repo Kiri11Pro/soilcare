@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактирование профиля</title>
+  <link rel="stylesheet" href="/style/profile-edit.css">
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="container mt-3">
+
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10">
+        <div class="card profile-edit-card">
+          <div class="card-header bg-white border-bottom py-3">
+            <h5 class="mb-0 text-dark">
+              <i class="bi bi-pencil me-2" style="color: #3A7D44;"></i>Редактирование профиля
+            </h5>
+          </div>
+
+          <div class="card-body p-0">
+            <div th:if="${error}" class="alert alert-danger m-3 mb-0 rounded-0 border-0 border-start border-3 border-danger">
+              <i class="bi bi-exclamation-circle me-2"></i>
+              <span th:text="${error}"></span>
+            </div>
+
+            <div th:if="${param.updated}" class="alert alert-success m-3 mb-0 rounded-0 border-0 border-start border-3 border-success">
+              <i class="bi bi-check-circle me-2"></i>Профиль успешно обновлен
+            </div>
+
+            <form th:action="@{/profile/edit}" th:object="${user}" method="post" class="p-3">
+              <input type="hidden" th:field="*{id}">
+
+              <!-- Основная информация -->
+              <div class="row compact-row">
+                <div class="col-md-6 mb-2">
+                  <label class="form-label required-field">Имя</label>
+                  <input type="text" class="form-control" th:field="*{firstName}"
+                         placeholder="Ваше имя" required>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label class="form-label required-field">Фамилия</label>
+                  <input type="text" class="form-control" th:field="*{lastName}"
+                         placeholder="Ваша фамилия" required>
+                </div>
+              </div>
+
+              <div class="row compact-row">
+                <div class="col-md-6 mb-2">
+                  <label class="form-label required-field">Email</label>
+                  <input type="email" class="form-control" th:field="*{email}"
+                         placeholder="email@example.com" required>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label class="form-label">Телефон</label>
+                  <input type="tel" class="form-control" th:field="*{phone}"
+                         placeholder="+7 (XXX) XXX-XX-XX">
+                </div>
+              </div>
+
+              <div class="section-divider"></div>
+
+              <!-- Местоположение -->
+              <div class="row compact-row">
+                <div class="col-md-6 mb-2">
+                  <label class="form-label">Город</label>
+                  <input type="text" class="form-control" th:field="*{city}"
+                         placeholder="Город">
+                </div>
+                <div class="col-12 mb-2">
+                  <label class="form-label">Адрес</label>
+                  <textarea class="form-control" th:field="*{address}"
+                            rows="2" placeholder="Полный адрес"></textarea>
+                </div>
+              </div>
+
+              <!-- Кнопки действий -->
+              <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+                <small class="text-muted">
+                  <i class="bi bi-asterisk text-danger me-1"></i>Обязательные поля
+                </small>
+                <div class="d-flex gap-2">
+                  <a th:href="@{/profile}" class="btn btn-outline-secondary btn-sm">
+                    Отмена
+                  </a>
+                  <button type="submit" class="btn btn-success btn-sm">
+                    <i class="bi bi-check-lg me-1"></i>Сохранить
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Информационная карточка -->
+        <div class="card mt-3 border-0 bg-light">
+          <div class="card-body py-2">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-info-circle me-2 text-muted"></i>
+              <small class="text-muted">Изменения вступят в силу сразу после сохранения</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Простая маска для телефона
+    document.addEventListener('DOMContentLoaded', function() {
+      const phoneInput = document.querySelector('input[type="tel"]');
+      if (phoneInput) {
+        phoneInput.addEventListener('input', function(e) {
+          let value = e.target.value.replace(/\D/g, '');
+          if (value.startsWith('7') || value.startsWith('8')) {
+            value = value.substring(1);
+          }
+          if (value.length > 0) {
+            value = '+7 (' + value;
+            if (value.length > 7) value = value.substring(0, 7) + ') ' + value.substring(7);
+            if (value.length > 12) value = value.substring(0, 12) + '-' + value.substring(12);
+            if (value.length > 15) value = value.substring(0, 15) + '-' + value.substring(15);
+            if (value.length > 18) value = value.substring(0, 18);
+          }
+          e.target.value = value;
+        });
+      }
+    });
+  </script>
+</section>
+</body>
+</html>

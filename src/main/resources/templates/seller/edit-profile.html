@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование профиля продавца</title>
+    <link rel="stylesheet" href="/style/seller-edit.css">
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card edit-card">
+                    <div class="card-header bg-white">
+                        <h4 class="mb-0">
+                            <i class="bi bi-pencil-square me-2"></i>Редактирование профиля
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${error}" class="alert alert-danger" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            <span th:text="${error}"></span>
+                        </div>
+
+                        <form th:action="@{/seller-dashboard/edit}" th:object="${seller}" method="post">
+                            <div class="form-section">
+                                <h5 class="text-primary mb-3">
+                                    <i class="bi bi-building me-2"></i>Информация о компании
+                                </h5>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Название компании *</label>
+                                        <input type="text" class="form-control" th:field="*{companyName}"
+                                               required placeholder="ООО 'АгроСервис'">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Контактное лицо *</label>
+                                        <input type="text" class="form-control" th:field="*{contactPerson}"
+                                               required placeholder="Иван Иванов">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Описание компании</label>
+                                    <textarea class="form-control" th:field="*{description}"
+                                              rows="3" placeholder="Опишите вашу компанию и специализацию..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h5 class="text-primary mb-3">
+                                    <i class="bi bi-telephone me-2"></i>Контактная информация
+                                </h5>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Email *</label>
+                                        <input type="email" class="form-control" th:field="*{email}"
+                                               required placeholder="company@mail.ru">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Телефон *</label>
+                                        <input type="tel" class="form-control" th:field="*{phone}"
+                                               required placeholder="+7 (999) 999-99-99">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Город *</label>
+                                        <input type="text" class="form-control" th:field="*{city}"
+                                               required placeholder="Москва">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Адрес</label>
+                                        <input type="text" class="form-control" th:field="*{address}"
+                                               placeholder="ул. Ленина, д. 1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h5 class="text-primary mb-3">
+                                    <i class="bi bi-globe me-2"></i>Дополнительная информация
+                                </h5>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Веб-сайт</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">https://</span>
+                                            <input type="text" class="form-control" th:field="*{website}"
+                                                   placeholder="ваш-сайт.ru">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Лет на рынке</label>
+                                        <input type="number" class="form-control" th:field="*{yearsOnMarket}"
+                                               min="0" placeholder="5">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">URL логотипа</label>
+                                    <input type="url" class="form-control" th:field="*{logoUrl}"
+                                           placeholder="https://example.com/logo.png">
+                                    <div class="form-text">Ссылка на изображение логотипа вашей компании</div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2 justify-content-end">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="bi bi-check-circle me-2"></i>Сохранить изменения
+                                </button>
+                                <a th:href="@{/seller-dashboard}" class="btn btn-secondary">
+                                    <i class="bi bi-x-circle me-2"></i>Отмена
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneInput = document.querySelector('input[type="tel"]');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 0) {
+                        value = '+7 (' + value;
+                        if (value.length > 7) value = value.slice(0, 7) + ') ' + value.slice(7);
+                        if (value.length > 12) value = value.slice(0, 12) + '-' + value.slice(12);
+                        if (value.length > 15) value = value.slice(0, 15) + '-' + value.slice(15);
+                    }
+                    e.target.value = value;
+                });
+            }
+        });
+    </script>
+</section>
+</body>
+</html>

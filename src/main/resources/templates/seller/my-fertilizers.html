@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Мои товары</title>
+  <link rel="stylesheet" href="/style/my-fertilizers.css">
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="container mt-3">
+
+
+    <!-- Заголовок и кнопка -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="mb-0 text-dark">
+        <i class="bi bi-box me-2" style="color: #3A7D44;"></i>Мои товары
+      </h4>
+      <a th:href="@{/fertilizers/add}" class="btn btn-success btn-sm">
+        <i class="bi bi-plus-circle me-1"></i>Добавить товар
+      </a>
+    </div>
+
+    <!-- Список товаров -->
+    <div th:if="${not #lists.isEmpty(fertilizers)}">
+      <div class="row g-3">
+        <div th:each="fert : ${fertilizers}" class="col-lg-4 col-md-6">
+          <div class="card product-card h-100">
+            <div class="card-body d-flex flex-column">
+              <!-- Заголовок и тип -->
+              <div class="mb-2">
+                <h6 class="card-title" th:text="${fert.name}">Название товара</h6>
+                <span class="type-badge" th:text="${fert.fertilizerType?.displayName}">Тип</span>
+              </div>
+
+              <!-- Описание -->
+              <p class="text-muted small flex-grow-1"
+                 th:text="${fert.description ?: 'Описание отсутствует'}">
+                Краткое описание товара...
+              </p>
+
+              <!-- Цена и состав -->
+              <div class="mt-auto">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span class="price-tag" th:text="'₽' + ${#numbers.formatDecimal(fert.price, 0, 0)}">1500</span>
+                                  </div>
+
+
+                <!-- Кнопки действий -->
+                <div class="d-flex gap-1">
+                  <a th:href="@{/fertilizers/{id}(id=${fert.id})}"
+                     class="btn btn-outline-primary btn-sm flex-fill">
+                    <i class="bi bi-eye me-1"></i>Просмотр
+                  </a>
+                  <a th:href="@{/fertilizers/edit/{id}(id=${fert.id})}"
+                     class="btn btn-outline-secondary btn-sm flex-fill">
+                    <i class="bi bi-pencil me-1"></i>Изменить
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Статистика -->
+      <div class="card mt-3 bg-light border-0">
+        <div class="card-body py-2">
+          <div class="d-flex justify-content-between align-items-center text-muted small">
+            <span>Всего товаров: <strong th:text="${fertilizers.size()}">0</strong></span>
+            <span th:if="${totalValue != null}">
+              Общая стоимость: <strong th:text="'₽' + ${#numbers.formatDecimal(totalValue, 0, 0)}">0</strong>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Пустое состояние -->
+    <div th:if="${#lists.isEmpty(fertilizers)}" class="text-center py-4 empty-state">
+      <i class="bi bi-box text-muted fs-1"></i>
+      <h5 class="mt-2 text-muted">У вас пока нет товаров</h5>
+      <p class="text-muted small mb-3">Добавьте свой первый товар для начала продаж</p>
+      <a th:href="@{/fertilizers/add}" class="btn btn-success">
+        <i class="bi bi-plus-circle me-1"></i>Добавить первый товар
+      </a>
+
+      <!-- Подсказки -->
+      <div class="card mt-3 border-0 bg-light">
+        <div class="card-body py-2">
+          <div class="row text-muted small">
+            <div class="col-4 text-center">
+              <i class="bi bi-camera d-block"></i>
+              <span>Фото товара</span>
+            </div>
+            <div class="col-4 text-center">
+              <i class="bi bi-file-text d-block"></i>
+              <span>Подробное описание</span>
+            </div>
+            <div class="col-4 text-center">
+              <i class="bi bi-tags d-block"></i>
+              <span>Укажите цену</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

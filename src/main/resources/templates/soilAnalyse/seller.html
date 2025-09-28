@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="mb-3">
+    <strong class="small">Продавец:</strong>
+    <div class="d-flex align-items-center mt-1">
+        <img th:if="${fert.seller.logoUrl}"
+             th:src="${fert.seller.logoUrl}"
+             class="rounded me-2"
+             style="width: 24px; height: 24px; object-fit: cover;">
+        <div>
+            <div class="small">
+                <span th:text="${fert.sellerName}">АгроСнаб</span>
+                <span th:if="${fert.seller.isVerified}" class="text-primary ms-1">
+                    <i class="bi bi-patch-check-fill"></i>
+                </span>
+            </div>
+            <div class="small text-muted">
+                <span th:text="${fert.sellerRating}">4.8</span>
+                <i class="bi bi-star-fill text-warning ms-1"></i>
+                <span class="ms-2" th:text="'(' + ${fert.seller.reviewCount} + ' отзывов)'">(124 отзыва)</span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить отзыв о продавце</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">
+                            <i class="bi bi-star me-2"></i>Добавить отзыв о продавце
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${error}" class="alert alert-danger" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            <span th:text="${error}"></span>
+                        </div>
+
+                        <form th:action="@{/reviews/seller/save}" th:object="${review}" method="post">
+                            <input type="hidden" name="sellerId" th:value="${sellerId}">
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Оценка *</label>
+                                <div class="rating-stars">
+                                    <div class="d-flex justify-content-center">
+                                        <span th:each="i: ${#numbers.sequence(1, 5)}">
+                                            <input type="radio" th:id="'star' + ${i}" name="rating" th:value="${i}"
+                                                   class="d-none" th:checked="${i == 5}">
+                                            <label th:for="'star' + ${i}" class="star-label">
+                                                <i class="bi bi-star-fill fs-2"></i>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Комментарий *</label>
+                                <textarea class="form-control" name="comment"
+                                          rows="4" placeholder="Поделитесь вашим опытом работы с продавцом..."
+                                          required th:field="*{comment}"></textarea>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-success flex-grow-1">
+                                    <i class="bi bi-check-circle me-2"></i>Опубликовать отзыв
+                                </button>
+                                <a th:href="@{/sellers/{id}(id=${sellerId})}" class="btn btn-secondary">
+                                    <i class="bi bi-x-circle me-2"></i>Отмена
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .star-label {
+            cursor: pointer;
+            color: #ddd;
+            transition: color 0.2s;
+            margin: 0 2px;
+        }
+        .star-label:hover,
+        .star-label:hover ~ .star-label {
+            color: #ffc107 !important;
+        }
+        input[type="radio"]:checked ~ .star-label,
+        input[type="radio"]:checked ~ .star-label ~ .star-label {
+            color: #ffc107;
+        }
+        input[type="radio"]:checked + .star-label ~ .star-label {
+            color: #ddd;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.star-label');
+
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const radio = this.previousElementSibling;
+                    radio.checked = true;
+
+                    stars.forEach(s => {
+                        s.style.color = '#ddd';
+                    });
+
+                    let current = this;
+                    while (current) {
+                        if (current.classList.contains('star-label')) {
+                            current.style.color = '#ffc107';
+                        }
+                        current = current.previousElementSibling;
+                    }
+                });
+            });
+
+            const defaultStar = document.querySelector('input[type="radio"][value="5"]');
+            if (defaultStar) {
+                defaultStar.checked = true;
+                let current = defaultStar.nextElementSibling;
+                while (current && current.classList.contains('star-label')) {
+                    current.style.color = '#ffc107';
+                    current = current.nextElementSibling;
+                }
+            }
+        });
+    </script>
+</section>
+</body>
+</html>

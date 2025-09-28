@@ -1,0 +1,79 @@
+<section th:fragment="details">
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <div class="card analysis-card">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0"><i class="bi bi-moisture me-2"></i>Результаты анализа почвы</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Дата анализа:</strong>
+<!--                                                                <span th:text="${#dates.format(soilAnalysis.date, 'dd.MM.yyyy HH:mm')}">01.01.2024 14:30</span>-->
+                            </p>
+                            <p><strong>pH:</strong>
+                                <span th:text="${soilAnalysis.ph}">6.5</span>
+                                <span th:if="${soilAnalysis.ph < 6.0}" class="badge bg-danger ms-2">Кислая</span>
+                                <span th:if="${soilAnalysis.ph >= 6.0 and soilAnalysis.ph <= 7.5}"
+                                      class="badge bg-success ms-2">Норма</span>
+                                <span th:if="${soilAnalysis.ph > 7.5}" class="badge bg-warning ms-2">Щелочная</span>
+                            </p>
+                            <p><strong>Азот (N):</strong>
+                                <span th:text="${soilAnalysis.nitrogen}">25</span> mg/kg
+                                <span th:if="${soilAnalysis.nitrogen < 20}" class="badge bg-danger ms-2">Низкий</span>
+                                <span th:if="${soilAnalysis.nitrogen >= 20 and soilAnalysis.nitrogen <= 40}"
+                                      class="badge bg-success ms-2">Норма</span>
+                                <span th:if="${soilAnalysis.nitrogen > 40}" class="badge bg-warning ms-2">Высокий</span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Фосфор (P):</strong>
+                                <span th:text="${soilAnalysis.phosphorus}">15</span> mg/kg
+                                <span th:if="${soilAnalysis.phosphorus < 15}" class="badge bg-danger ms-2">Низкий</span>
+                                <span th:if="${soilAnalysis.phosphorus >= 15 and soilAnalysis.phosphorus <= 30}"
+                                      class="badge bg-success ms-2">Норма</span>
+                                <span th:if="${soilAnalysis.phosphorus > 30}"
+                                      class="badge bg-warning ms-2">Высокий</span>
+                            </p>
+                            <p><strong>Калий (K):</strong>
+                                <span th:text="${soilAnalysis.potassium}">120</span> mg/kg
+                                <span th:if="${soilAnalysis.potassium < 100}" class="badge bg-danger ms-2">Низкий</span>
+                                <span th:if="${soilAnalysis.potassium >= 100 and soilAnalysis.potassium <= 200}"
+                                      class="badge bg-success ms-2">Норма</span>
+                                <span th:if="${soilAnalysis.potassium > 200}"
+                                      class="badge bg-warning ms-2">Высокий</span>
+                            </p>
+                            <p th:if="${soilAnalysis.organicMatter != null}">
+                                <strong>Органическое вещество:</strong>
+                                <span th:text="${soilAnalysis.organicMatter}">2.8</span>%
+                                <span th:if="${soilAnalysis.organicMatter < 1}" class="badge bg-danger ms-2">Очень низкое</span>
+                                <span th:if="${soilAnalysis.organicMatter >= 1 and soilAnalysis.organicMatter < 2}"
+                                      class="badge bg-warning ms-2">Низкое</span>
+                                <span th:if="${soilAnalysis.organicMatter >= 2 and soilAnalysis.organicMatter < 4}"
+                                      class="badge bg-success ms-2">Оптимальное</span>
+                                <span th:if="${soilAnalysis.organicMatter >= 4 and soilAnalysis.organicMatter < 6}"
+                                      class="badge bg-info ms-2">Высокое</span>
+                                <span th:if="${soilAnalysis.organicMatter >= 6}"
+                                      class="badge bg-secondary ms-2">Очень высокое</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card mt-4">
+                <div class="card-body text-center">
+                    <h5>Рекомендации по улучшению почвы</h5>
+                    <p>На основе вашего анализа мы подготовили персонализированные рекомендации</p>
+                    <a th:href="@{/soilAnalysis/recommendations/{id}(id=${soilAnalysis.id})}"
+                       class="btn btn-primary">
+                        <i class="bi bi-lightbulb me-2"></i>Посмотреть рекомендации
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>

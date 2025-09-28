@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Отзывы</title>
+  <style>
+    .review-card {
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .review-card:hover {
+      border-color: #3A7D44;
+      box-shadow: 0 2px 8px rgba(58, 125, 68, 0.1);
+    }
+    .review-type-badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+    }
+    .rating-stars {
+      color: #ffc107;
+    }
+    .review-date {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+    .empty-state {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .filter-badge {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .filter-badge:hover {
+      transform: scale(1.05);
+    }
+    .filter-badge.active {
+      background-color: #3A7D44 !important;
+    }
+  </style>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="container mt-4">
+
+    <div class="row">
+      <!-- Меню профиля -->
+      <div class="col-lg-3 mb-4">
+        <div th:replace="~{fragments/seller-profile-menu::seller-profile-menu}"></div>
+      </div>
+
+      <!-- Основной контент -->
+      <div class="col-lg-9">
+        <div class="card">
+          <div class="card-header bg-white">
+            <div class="d-flex justify-content-between align-items-center">
+              <h4 class="mb-0">
+                <i class="bi bi-chat-dots me-2" style="color: #3A7D44;"></i>Отзывы
+                <span class="badge bg-primary ms-2" th:text="${reviews.size()}">0</span>
+              </h4>
+              <div class="d-flex align-items-center">
+                <span class="me-2 small text-muted">Средний рейтинг:</span>
+                <span class="badge bg-success fs-6">
+                                    <i class="bi bi-star-fill me-1"></i>
+                                    <span th:text="${#numbers.formatDecimal(seller.rating, 1, 1)}">4.8</span>
+                                </span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <!-- Уведомления -->
+            <div th:if="${success}" class="alert alert-success alert-dismissible fade show">
+              <i class="bi bi-check-circle me-2"></i>
+              <span th:text="${success}"></span>
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <!-- Фильтры -->
+            <div class="card mb-4 bg-light">
+              <div class="card-body py-3">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="me-3 small text-muted">Фильтровать:</span>
+                    <div class="btn-group" role="group">
+                      <button type="button" class="btn btn-outline-secondary btn-sm filter-btn active" data-filter="all">
+                        Все отзывы
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm filter-btn" data-filter="seller">
+                        На продавца
+                      </button>
+                      <button type="button" class="btn btn-outline-secondary btn-sm filter-btn" data-filter="product">
+                        На товары
+                      </button>
+                    </div>
+                  </div>
+                  <div class="text-muted small">
+                    <span th:text="${sellerReviewsCount}">0</span> на продавца •
+                    <span th:text="${productReviewsCount}">0</span> на товары
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Список отзывов -->
+            <div th:if="${not #lists.isEmpty(reviews)}">
+              <!-- Отзывы на продавца -->
+              <div class="mb-4 seller-reviews">
+                <h5 class="mb-3 text-success">
+                  <i class="bi bi-shop me-2"></i>Отзывы на продавца
+                  <span class="badge bg-success" th:text="${sellerReviewsCount}">0</span>
+                </h5>
+                <div th:each="review : ${reviews}" th:if="${review.seller != null && review.fertilizer == null}">
+                  <div class="card review-card mb-3">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                          <span class="badge review-type-badge bg-success">На продавца</span>
+                          <div class="rating-stars mt-1">
+                                                        <span th:each="i: ${#numbers.sequence(1, 5)}">
+                                                            <i th:class="${i <= review.rating} ?
+                                                                       'bi bi-star-fill' :
+                                                                       'bi bi-star'"></i>
+                                                        </span>
+                          </div>
+                        </div>
+                        <small class="review-date"
+                               th:text="${review.createdAt != null} ?
+                                                              ${#temporals.format(review.createdAt, 'dd.MM.yyyy HH:mm')} :
+                                                              'дата не указана'">
+                          01.01.2024 14:30
+                        </small>
+                      </div>
+
+                      <p class="mb-2" th:text="${review.comment}">
+                        Текст отзыва на продавца...
+                      </p>
+
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                          От:
+                          <span th:if="${review.user != null}"
+                                th:text="${review.user.firstName + ' ' + review.user.lastName}">
+                                                        Пользователь
+                                                    </span>
+                          <span th:unless="${review.user != null}">
+                                                        Анонимный пользователь
+                                                    </span>
+                        </small>
+                        <div>
+                          <button class="btn btn-outline-danger btn-sm"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#deleteReviewModal"
+                                  th:attr="data-bs-target='#deleteReviewModal' + ${review.id}">
+                            <i class="bi bi-trash me-1"></i>Удалить
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Отзывы на товары -->
+              <div class="product-reviews">
+                <h5 class="mb-3 text-primary">
+                  <i class="bi bi-box me-2"></i>Отзывы на товары
+                  <span class="badge bg-primary" th:text="${productReviewsCount}">0</span>
+                </h5>
+                <div th:each="review : ${reviews}" th:if="${review.fertilizer != null}">
+                  <div class="card review-card mb-3">
+                    <div class="card-body">
+                      <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                          <span class="badge review-type-badge bg-primary">На товар</span>
+                          <h6 class="mb-1 mt-1">
+                            <a th:href="@{/fertilizers/{id}(id=${review.fertilizer.id})}"
+                               class="text-decoration-none" style="color: #3A7D44;">
+                              <span th:text="${review.fertilizer.name}">Название товара</span>
+                            </a>
+                          </h6>
+                          <div class="rating-stars">
+                                                        <span th:each="i: ${#numbers.sequence(1, 5)}">
+                                                            <i th:class="${i <= review.rating} ?
+                                                                       'bi bi-star-fill' :
+                                                                       'bi bi-star'"></i>
+                                                        </span>
+                          </div>
+                        </div>
+                        <small class="review-date"
+                               th:text="${review.createdAt != null} ?
+                                                              ${#temporals.format(review.createdAt, 'dd.MM.yyyy HH:mm')} :
+                                                              'дата не указана'">
+                          01.01.2024 14:30
+                        </small>
+                      </div>
+
+                      <p class="mb-2" th:text="${review.comment}">
+                        Текст отзыва на товар...
+                      </p>
+
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">
+                          От:
+                          <span th:if="${review.user != null}"
+                                th:text="${review.user.firstName + ' ' + review.user.lastName}">
+                                                        Пользователь
+                                                    </span>
+                          <span th:unless="${review.user != null}">
+                                                        Анонимный пользователь
+                                                    </span>
+                        </small>
+                        <div>
+                          <button class="btn btn-outline-danger btn-sm"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#deleteReviewModal"
+                                  th:attr="data-bs-target='#deleteReviewModal' + ${review.id}">
+                            <i class="bi bi-trash me-1"></i>Удалить
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Пустое состояние -->
+            <div th:if="${#lists.isEmpty(reviews)}" class="text-center py-5 empty-state">
+              <i class="bi bi-chat-dots display-4 text-muted"></i>
+              <h4 class="mt-3 text-muted">Пока нет отзывов</h4>
+              <p class="text-muted">Отзывы появятся здесь, когда покупатели начнут оставлять их на ваши товары</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальные окна для удаления отзывов -->
+  <div th:each="review : ${reviews}" th:if="${not #lists.isEmpty(reviews)}">
+    <div class="modal fade" th:id="'deleteReviewModal' + ${review.id}" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Удаление отзыва</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <p>Вы уверены, что хотите удалить этот отзыв?</p>
+            <p class="text-muted small" th:text="'Отзыв от ' + ${#temporals.format(review.createdAt, 'dd.MM.yyyy')}"></p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <form th:action="@{/seller-dashboard/reviews/delete/{id}(id=${review.id})}" method="post" class="d-inline">
+              <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Фильтрация отзывов
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const sellerReviews = document.querySelector('.seller-reviews');
+      const productReviews = document.querySelector('.product-reviews');
+
+      filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // Убираем активный класс у всех кнопок
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          // Добавляем активный класс текущей кнопке
+          this.classList.add('active');
+
+          const filter = this.getAttribute('data-filter');
+
+          // Показываем/скрываем блоки в зависимости от фильтра
+          if (filter === 'all') {
+            sellerReviews.style.display = 'block';
+            productReviews.style.display = 'block';
+          } else if (filter === 'seller') {
+            sellerReviews.style.display = 'block';
+            productReviews.style.display = 'none';
+          } else if (filter === 'product') {
+            sellerReviews.style.display = 'none';
+            productReviews.style.display = 'block';
+          }
+        });
+      });
+    });
+  </script>
+</section>
+</body>
+</html>

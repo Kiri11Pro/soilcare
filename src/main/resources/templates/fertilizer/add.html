@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить товар</title>
+    <style>
+        .form-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .form-section:last-of-type {
+            border-bottom: none;
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            color: #3A7D44;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .section-title i {
+            margin-right: 0.5rem;
+        }
+        .required-field::after {
+            content: " *";
+            color: #dc3545;
+        }
+        .npk-inputs .form-control {
+            text-align: center;
+        }
+        .npk-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #3A7D44;
+        }
+        .preview-image {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-header bg-white">
+                        <h4 class="mb-0">
+                            <i class="bi bi-plus-circle me-2" style="color: #3A7D44;"></i>Добавить новый товар
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <!-- Уведомления -->
+                        <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            <span th:text="${error}"></span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                                                <form th:action="@{/seller-dashboard/fertilizers/add}" th:object="${fertilizer}" method="post" enctype="multipart/form-data" >
+                            <!-- Основная информация -->
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="bi bi-info-circle"></i>Основная информация
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8 mb-3">
+                                        <label class="form-label required-field">Название товара</label>
+                                        <input type="text" class="form-control" th:field="*{name}"
+                                               placeholder="Введите название удобрения" required>
+                                        <div class="invalid-feedback">Пожалуйста, введите название товара</div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label required-field">Тип удобрения</label>
+                                        <select class="form-select" th:field="*{fertilizerType}" required>
+                                            <option value="">Выберите тип</option>
+                                            <option th:each="type : ${T(com.pronchenko.top.soilcare3.entity.FertilizerType).values()}"
+                                                    th:value="${type}"
+                                                    th:text="${type.displayName}">
+                                            </option>
+                                        </select>
+                                        <div class="invalid-feedback">Пожалуйста, выберите тип удобрения</div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label required-field">Описание товара</label>
+                                    <textarea class="form-control" th:field="*{description}"
+                                              rows="4" placeholder="Подробное описание удобрения, его свойств и преимуществ" required></textarea>
+                                    <div class="invalid-feedback">Пожалуйста, добавьте описание товара</div>
+                                </div>
+                            </div>
+
+                            <!-- Состав NPK -->
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="bi bi-flower1"></i>Состав NPK (%)
+                                </div>
+                                <div class="row npk-inputs">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label npk-label">Азот (N)</label>
+                                        <input type="number" class="form-control" th:field="*{nContent}"
+                                               step="0.1" min="0" max="100" placeholder="0.0">
+                                        <div class="form-text">Содержание азота в процентах</div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label npk-label">Фосфор (P)</label>
+                                        <input type="number" class="form-control" th:field="*{pContent}"
+                                               step="0.1" min="0" max="100" placeholder="0.0">
+                                        <div class="form-text">Содержание фосфора в процентах</div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label npk-label">Калий (K)</label>
+                                        <input type="number" class="form-control" th:field="*{kContent}"
+                                               step="0.1" min="0" max="100" placeholder="0.0">
+                                        <div class="form-text">Содержание калия в процентах</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Применение и цена -->
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="bi bi-geo-alt"></i>Применение и стоимость
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Норма внесения</label>
+                                        <input type="text" class="form-control" th:field="*{applicationRate}"
+                                               placeholder="Например: 20-30 г/м²">
+                                        <div class="form-text">Рекомендуемая норма применения</div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label required-field">Сезон</label>
+                                        <select class="form-select" th:field="*{season}" required>
+                                            <option value="">Выберите сезон</option>
+                                            <option th:each="season : ${T(com.pronchenko.top.soilcare3.entity.Season).values()}"
+                                                    th:value="${season}"
+                                                    th:text="${season.displayName}">
+                                            </option>
+                                        </select>
+                                        <div class="invalid-feedback">Пожалуйста, выберите сезон применения</div>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label class="form-label required-field">Цена (₽)</label>
+                                        <input type="number" class="form-control" th:field="*{price}"
+                                               step="0.01" min="0" placeholder="0.00" required>
+                                        <div class="invalid-feedback">Пожалуйста, укажите цену товара</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Изображение -->
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="bi bi-image"></i>Изображение товара
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Загрузить изображение</label>
+                                        <input type="file" class="form-control" id="imageUpload"
+                                               accept="image/*" name="imageFile">
+                                        <div class="form-text">Рекомендуемый размер: 500x500px, формат: JPG, PNG</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Предпросмотр</label>
+                                        <div class="border rounded p-3 text-center">
+                                            <img id="imagePreview" src="#" alt="Предпросмотр" class="preview-image d-none">
+                                            <div id="noImage" class="text-muted">
+                                                <i class="bi bi-image fs-1"></i>
+                                                <p class="mb-0 small">Изображение не выбрано</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Кнопки -->
+                            <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                                <div>
+                                    <small class="text-muted">
+                                        <i class="bi bi-asterisk text-danger me-1"></i>
+                                        Поля, отмеченные *, обязательны для заполнения
+                                    </small>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <a th:href="@{/seller-dashboard/fertilizers}" class="btn btn-secondary">
+                                        <i class="bi bi-arrow-left me-2"></i>Отмена
+                                    </a>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="bi bi-check-lg me-2"></i>Добавить товар
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Валидация формы
+        (function() {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+
+        // Предпросмотр изображения
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('imagePreview');
+            const noImage = document.getElementById('noImage');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('d-none');
+                    noImage.classList.add('d-none');
+                }
+                reader.readAsDataURL(file);
+            } else {
+                preview.classList.add('d-none');
+                noImage.classList.remove('d-none');
+            }
+        });
+
+        // Автозаполнение URL изображения (если нужно)
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            // Здесь можно добавить логику для загрузки файла на сервер
+            // и автоматического заполнения поля imageUrl
+        });
+    </script>
+</section>
+</body>
+</html>

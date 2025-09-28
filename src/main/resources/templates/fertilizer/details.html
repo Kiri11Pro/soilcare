@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${fertilizer.name}">Детали удобрения</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a th:href="@{/}">Главная</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a th:href="@{/fertilizers/catalog}">Каталог удобрений</a>
+                </li>
+                <li class="breadcrumb-item active" th:text="${fertilizer.name}">Удобрение</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-md-5 mb-4">
+                <div class="card">
+                    <div class="ratio ratio-1x1 bg-light">
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                            <img th:if="${fertilizer.imageUrl}" th:src="${fertilizer.imageUrl}"
+                                 class="img-fluid h-100 w-auto"
+                                 style="object-fit: contain;"
+                                 alt="Изображение удобрения"
+                                 onerror="this.onerror=null; this.src='/images/fertilizers/fertilizer.svg';">
+                            <div th:unless="${fertilizer.imageUrl}" class="text-center text-muted">
+                                <i class="bi bi-image display-4 d-block"></i>
+                                <small>Нет изображения</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <h2 th:text="${fertilizer.name}" class="card-title mb-0">Название</h2>
+                            <span class="badge fs-6"
+                                  th:classappend="${fertilizer.fertilizerType == 'ORGANIC'} ? 'bg-success' :
+                                                 (${fertilizer.fertilizerType == 'MINERAL'} ? 'bg-primary' : 'bg-secondary')"
+                                  th:text="${fertilizer.fertilizerType.displayName}">Тип</span>
+                        </div>
+
+                        <div class="mb-3">
+                            <span class="h3 text-primary"
+                                  th:text="'₽' + ${#numbers.formatDecimal(fertilizer.price, 0, 0)}">1500</span>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Состав:</h5>
+                            <div class="d-flex gap-3">
+                                <div th:if="${fertilizer.nContent > 0}" class="text-center">
+                                    <div class="fs-4 text-info fw-bold" th:text="${fertilizer.nContent} + '%'">20%</div>
+                                    <div class="small text-muted">Азот (N)</div>
+                                </div>
+                                <div th:if="${fertilizer.pContent > 0}" class="text-center">
+                                    <div class="fs-4 text-warning fw-bold" th:text="${fertilizer.pContent} + '%'">15%</div>
+                                    <div class="small text-muted">Фосфор (P)</div>
+                                </div>
+                                <div th:if="${fertilizer.kContent > 0}" class="text-center">
+                                    <div class="fs-4 text-success fw-bold" th:text="${fertilizer.kContent} + '%'">25%</div>
+                                    <div class="small text-muted">Калий (K)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h5>Описание:</h5>
+                            <p th:text="${fertilizer.description}" class="text-muted">
+                                Описание удобрения
+                            </p>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-6">
+                                <strong>Норма внесения:</strong>
+                                <div th:text="${fertilizer.applicationRate}">20-30 г/м²</div>
+                            </div>
+                            <div class="col-6">
+                                <strong>Сезон применения:</strong>
+                                <div th:text="${fertilizer.season?.displayName}">Весна</div>
+                            </div>
+                        </div>
+
+                        <div th:if="${fertilizer.seller != null}" class="mb-4">
+                            <h5>Продавец:</h5>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-shop fs-4 text-muted me-3"></i>
+                                <div>
+                                    <div class="fw-bold" th:text="${fertilizer.seller.companyName}">Компания</div>
+                                    <div class="small text-muted" th:text="${fertilizer.seller.city}">Город</div>
+                                    <div class="small">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <span th:text="${fertilizer.sellerRating}">4.8</span>
+                                        <span class="text-muted ms-2">(<span th:text="${fertilizer.seller.reviewCount}">120</span> отзывов)</span>
+                                    </div>
+                                </div>
+                            </div><div class="mt-4">
+                            <a th:href="@{/reviews/fertilizer/{id}/add(id=${fertilizer.id})}"
+                               class="btn btn-outline-primary">
+                                <i class="bi bi-star me-2"></i>Добавить отзыв
+                            </a>
+                            <a th:href="@{/reviews/fertilizer/{id}(id=${fertilizer.id})}"
+                               class="btn btn-outline-secondary ms-2">
+                                <i class="bi bi-chat-dots me-2"></i>Посмотреть все отзывы
+                                (<span th:text="${fertilizer.reviewCount}">0</span>)
+                            </a>
+                        </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <a th:href="@{'https://' + ${fertilizer.seller?.website}}"
+                               th:if="${fertilizer.seller != null and fertilizer.seller.website != null}"
+                               target="_blank"
+                               class="btn btn-success btn-lg flex-grow-1">
+                                <i class="bi bi-cart me-2"></i>Купить на сайте продавца
+                            </a>
+
+                            <a th:href="@{/fertilizers/catalog}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

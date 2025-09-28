@@ -1,0 +1,87 @@
+<div th:fragment="fertilizerCard">
+    <div class="card h-100 shadow-sm card-hover"
+         th:onclick="'window.location.href=\'/fertilizers/' + ${fert.id} + '\''"
+         style="cursor: pointer;">
+        <div style="height: 200px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
+            <img th:src="${fert.imageUrl} ?: '/images/fertilizers/fertilizer.svg'"
+                 class="card-img-top"
+                 style="object-fit: contain; height: 150px;"
+                 alt="Изображение удобрения"
+                 onerror="this.onerror=null; this.src='/images/fertilizers/fertilizer.svg';">
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+                <h5 class="card-title mb-0" th:text="${fert.name}">Название</h5>
+                <span class="badge"
+                      th:classappend="${fert.fertilizerType == 'ORGANIC'} ? 'bg-success' :
+                                                             (${fert.fertilizerType == 'MINERAL'} ? 'bg-primary' : 'bg-secondary')"
+                      th:text="${fert.fertilizerType.displayName}">Тип</span>
+            </div>
+
+            <div class="mb-3">
+                <div class="d-flex gap-2 mb-2">
+                                            <span th:if="${fert.nContent > 0}"
+                                                  class="badge bg-info bg-opacity-25 text-info border border-info">
+                                                N: <span th:text="${fert.nContent}">0</span>%
+                                            </span>
+                    <span th:if="${fert.pContent > 0}"
+                          class="badge bg-warning bg-opacity-25 text-warning border border-warning">
+                                                P: <span th:text="${fert.pContent}">0</span>%
+                                            </span>
+                    <span th:if="${fert.kContent > 0}"
+                          class="badge bg-success bg-opacity-25 text-success border border-success">
+                                                K: <span th:text="${fert.kContent}">0</span>%
+                                            </span>
+                </div>
+            </div>
+
+            <p class="card-text text-muted small"
+               th:text="${fert.description}">Описание удобрения</p>
+
+            <div class="row small mb-3">
+                <div class="col-6">
+                    <strong>Норма:</strong>
+                    <div th:text="${fert.applicationRate}">20-30 г/м²</div>
+                </div>
+                <div class="col-6">
+                    <strong>Сезон:</strong>
+                    <div th:text="${fert.season?.displayName}">Весна</div>
+                </div>
+            </div>
+            <div th:if="${fert.fertilizerRating > 0}" class="mb-2">
+                <div class="d-flex align-items-center small">
+                    <i class="bi bi-star-fill text-warning me-1"></i>
+                    <span th:text="${#numbers.formatDecimal(fert.fertilizerRating, 1, 1)}">4.8</span>
+                    <span class="text-muted ms-2" th:if="${fert.reviewCount > 0}">
+            (<span th:text="${fert.reviewCount}">120</span>)
+        </span>
+                </div>
+            </div>
+
+
+            <div th:if="${fert.seller != null and fert.seller.rating > 0}" class="small text-muted">
+                <i class="bi bi-shop me-1"></i>
+                <span th:text="${fert.seller.companyName}"></span>
+                <span class="ms-2">
+        <i class="bi bi-star-fill text-warning"></i>
+        <span th:text="${#numbers.formatDecimal(fert.seller.rating, 1, 1)}">4.5</span>
+    </span>
+            </div>
+        </div>
+
+        <div class="card-footer bg-transparent">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="h5 mb-0 text-primary"
+                      th:text="'₽' + ${#numbers.formatDecimal(fert.price, 0, 0)}">1500</span>
+
+                <a th:href="@{'https://' + ${fert.seller?.website}}"
+                   th:if="${fert.seller != null and fert.seller.website != null}"
+                   target="_blank"
+                   class="btn btn-success btn-sm"
+                   onclick="event.stopPropagation()">
+                    <i class="bi bi-cart"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div th:fragment="profile-menu">
+
+        <div class="card profile-card">
+            <div class="card-body text-center">
+                <div class="profile-avatar mx-auto mb-3">
+                    <i class="bi bi-person"></i>
+                </div>
+                <h4 th:text="${user.firstName + ' ' + user.lastName}">Иван Иванов</h4>
+                <p class="text-muted" th:text="${user.email}">user@example.com</p>
+                <p class="text-muted">
+                    <small th:text="'Зарегистрирован: ' + ${#temporals.format(user.registrationDate, 'dd.MM.yyyy')}">
+                        Зарегистрирован: 01.01.2024
+                    </small>
+                </p>
+
+                <div class="d-grid gap-2">
+                    <a th:href="@{/profile/edit}" class="btn btn-outline-primary">
+                        <i class="bi bi-pencil me-2"></i>Редактировать профиль
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <nav class="nav flex-column nav-pills">
+                    <a class="nav-link" th:href="@{/profile}">
+                        <i class="bi bi-house me-2"></i>Обзор
+                    </a>
+                    <a class="nav-link" th:href="@{/profile/analyses}">
+                        <i class="bi bi-moisture me-2"></i>Мои анализы
+                        <span class="badge bg-primary float-end"
+                              th:text="${analyses.size()}">3</span>
+                    </a>
+                    <a class="nav-link" th:href="@{/profile/reviews}">
+                        <i class="bi bi-chat-dots me-2"></i>Мои отзывы
+                        <span class="badge bg-primary float-end"
+                              th:text="${reviews.size()}">5</span>
+                    </a>
+                    <a class="nav-link"
+                       th:href="@{/profile/favorites}">
+                        <i class="bi bi-heart me-2"></i>Избранное
+
+                    </a>
+                    <a class="nav-link" th:href="@{/profile/settings}">
+                        <i class="bi bi-gear me-2"></i>Настройки
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+
+</div>

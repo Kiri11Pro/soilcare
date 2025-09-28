@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>FAQ/Помощь - Smart Soil Care</title>
+    <style>
+        .faq-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: #28a745;
+            color: white;
+        }
+        .accordion-button:focus {
+            box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+        }
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .contact-card {
+            border: none;
+            transition: transform 0.3s ease;
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        .category-badge {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <!-- Шапка FAQ -->
+    <section class="faq-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-4">Часто задаваемые вопросы</h1>
+                    <p class="lead mb-4">Найдите ответы на самые популярные вопросы о работе нашей платформы</p>
+
+                    <!-- Поиск по FAQ -->
+                    <div class="search-box">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Поиск по вопросам..." id="faqSearch">
+                            <button class="btn btn-light" type="button">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Основное содержание -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+
+                    <!-- Навигация по категориям -->
+                    <div class="text-center mb-5">
+                        <h4 class="mb-3">Категории вопросов</h4>
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            <a href="#analysis" class="btn btn-outline-success btn-sm">Анализ почвы</a>
+                            <a href="#fertilizers" class="btn btn-outline-success btn-sm">Удобрения</a>
+                            <a href="#account" class="btn btn-outline-success btn-sm">Аккаунт</a>
+                            <a href="#payment" class="btn btn-outline-success btn-sm">Оплата</a>
+                            <a href="#technical" class="btn btn-outline-success btn-sm">Технические</a>
+                        </div>
+                    </div>
+
+                    <!-- Аккордеон с вопросами -->
+                    <div class="accordion" id="faqAccordion">
+
+                        <!-- Анализ почвы -->
+                        <h3 id="analysis" class="mt-5 mb-3">📊 Анализ почвы</h3>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                    Как правильно взять образец почвы для анализа?
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Для точного анализа рекомендуется:</p>
+                                    <ul>
+                                        <li>Взять образцы с глубины 15-20 см</li>
+                                        <li>Собрать почву из 5-6 разных точек участка</li>
+                                        <li>Смешать образцы в чистой емкости</li>
+                                        <li>Высушить при комнатной температуре</li>
+                                        <li>Исключить попадание удобрений и химикатов</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                    Какие параметры почвы анализирует ваша система?
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    Наша система анализирует 5 ключевых параметров:
+                                    <ul>
+                                        <li><strong>pH уровень</strong> - кислотность почвы</li>
+                                        <li><strong>Азот (N)</strong> - для роста растений</li>
+                                        <li><strong>Фосфор (P)</strong> - для корневой системы</li>
+                                        <li><strong>Калий (K)</strong> - для плодоношения</li>
+                                        <li><strong>Органическое вещество</strong> - плодородие почвы</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Удобрения -->
+                        <h3 id="fertilizers" class="mt-5 mb-3">🌱 Удобрения</h3>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                                    Насколько точны рекомендации по удобрениям?
+                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Точность наших рекомендаций составляет <strong>92-95%</strong>, что подтверждено:</p>
+                                    <ul>
+                                        <li>Научными исследованиями с агрономическими вузами</li>
+                                        <li>Полевыми испытаниями в разных регионах</li>
+                                        <li>Отзывами тысяч фермеров и садоводов</li>
+                                        <li>Постоянным обновлением алгоритмов на основе новых данных</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                                    Можно ли доверять продавцам на вашей платформе?
+                                </button>
+                            </h2>
+                            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Все продавцы проходят строгую проверку:</p>
+                                    <ul>
+                                        <li>✅ Проверка документов и лицензий</li>
+                                        <li>✅ Анализ качества продукции</li>
+                                        <li>✅ Мониторинг отзывов покупателей</li>
+                                        <li>✅ Регулярные аудиты качества</li>
+                                        <li>✅ Рейтинговая система на основе реальных оценок</li>
+                                    </ul>
+                                    <p class="mt-3">Мы гарантируем качество товаров всех представленных продавцов.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Аккаунт -->
+                        <h3 id="account" class="mt-5 mb-3">👤 Аккаунт и регистрация</h3>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">
+                                    Нужно ли регистрироваться для использования сервиса?
+                                </button>
+                            </h2>
+                            <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Вы можете:</p>
+                                    <ul>
+                                        <li><strong>Без регистрации</strong> - использовать калькулятор анализа почвы и просматривать каталог</li>
+                                        <li><strong>С регистрацией</strong> - сохранять историю анализов, получать персональные рекомендации, совершать покупки и отслеживать заказы</li>
+                                    </ul>
+                                    <p>Регистрация занимает менее 2 минут и открывает полный доступ ко всем функциям платформы.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Технические вопросы -->
+                        <h3 id="technical" class="mt-5 mb-3">💻 Технические вопросы</h3>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6">
+                                    Работает ли ваше приложение на мобильных устройствах?
+                                </button>
+                            </h2>
+                            <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Да! Наша платформа полностью адаптирована для:</p>
+                                    <ul>
+                                        <li>📱 Смартфонов (iOS и Android)</li>
+                                        <li>📱 Планшетов</li>
+                                        <li>💻 Настольных компьютеров</li>
+                                    </ul>
+                                    <p>Вы можете пользоваться сервисом с любого устройства в поле, теплице или дома.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Не нашли ответ? -->
+                    <div class="card contact-card mt-5 border-success">
+                        <div class="card-body text-center py-5">
+                            <i class="bi bi-question-circle display-1 text-success mb-3"></i>
+                            <h3>Не нашли ответ на свой вопрос?</h3>
+                            <p class="text-muted mb-4">Наша служба поддержки всегда готова помочь вам</p>
+                            <div class="d-flex justify-content-center gap-3">
+                                <a th:href="@{/contacts}" class="btn btn-success btn-lg">
+                                    <i class="bi bi-envelope me-2"></i>Написать нам
+                                </a>
+                                <a href="tel:+71234567890" class="btn btn-outline-success btn-lg">
+                                    <i class="bi bi-telephone me-2"></i>+7 (123) 456-78-90
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript для поиска -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('faqSearch');
+            const accordionItems = document.querySelectorAll('.accordion-item');
+
+            searchInput.addEventListener('input', function() {
+                const searchText = this.value.toLowerCase();
+
+                accordionItems.forEach(item => {
+                    const question = item.querySelector('.accordion-button').textContent.toLowerCase();
+                    const answer = item.querySelector('.accordion-body').textContent.toLowerCase();
+
+                    if (question.includes(searchText) || answer.includes(searchText)) {
+                        item.style.display = 'block';
+                        // Автоматически открываем найденные вопросы
+                        const collapse = item.querySelector('.accordion-collapse');
+                        if (!collapse.classList.contains('show')) {
+                            new bootstrap.Collapse(collapse);
+                        }
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+
+</section>
+</body>
+</html>

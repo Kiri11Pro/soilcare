@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рекомендации удобрений - Smart Soil Care</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    :root {
+      --primary-color: #3A7D44;
+      --secondary-color: #2E5A88;
+    }
+
+    .analysis-card {
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .recommendation-card {
+      transition: transform 0.2s;
+      border: 1px solid #dee2e6;
+    }
+
+    .recommendation-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .nutrient-bar {
+      height: 8px;
+      border-radius: 4px;
+    }
+
+    .priority-high { border-left: 4px solid #dc3545; }
+    .priority-medium { border-left: 4px solid #ffc107; }
+    .priority-low { border-left: 4px solid #28a745; }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+<!-- Навигация -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img src="/images/soilcare-logo.png" alt="Smart Soil Care" class="logo" width="70px">
+    </a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="/">Главная</a></li>
+        <li class="nav-item"><a class="nav-link" href="/soilAnalysis/form">Анализ почвы</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">Рекомендации</a></li>
+        <li class="nav-item"><a class="nav-link" href="/catalog">Каталог</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Заголовок -->
+<section class="py-4 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="h2 mb-0">Рекомендации по удобрениям</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row mb-4" th:if="${previousAnalyses != null and not #lists.isEmpty(previousAnalyses)}">
+      <div class="col-lg-8 mx-auto">
+        <div class="card">
+          <div class="card-header bg-white">
+            <h5 class="mb-0"><i class="bi bi-clock-history me-2"></i>Выберите из предыдущих анализов</h5>
+          </div>
+          <div class="card-body">
+            <select class="form-select" onchange="location = this.value;">
+              <option value="">-- Выберите предыдущий анализ --</option>
+              <option th:each="analysis : ${previousAnalyses}"
+                      th:value="@{'/fertilizer/recommendations?analysisId=' + ${analysis.id}}"
+                      th:text="${#dates.format(analysis.date, 'dd.MM.yyyy HH:mm')} + ' - pH: ' + ${analysis.ph}">
+                01.01.2024 - pH: 6.5
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-5">
+      <div class="col-lg-8 mx-auto">
+        <div class="card analysis-card">
+          <div class="card-header bg-white">
+            <h5 class="mb-0"><i class="bi bi-moisture me-2"></i>Результаты анализа почвы</h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>Дата анализа:</strong>
+                  <span th:text="${#dates.format(soilAnalysis.date, 'dd.MM.yyyy HH:mm')}">01.01.2024 14:30</span>
+                </p>
+                <p><strong>pH:</strong>
+                  <span th:text="${soilAnalysis.ph}">6.5</span>
+                  <span th:if="${soilAnalysis.ph < 6.0}" class="badge bg-danger ms-2">Кислая</span>
+                  <span th:if="${soilAnalysis.ph >= 6.0 and soilAnalysis.ph <= 7.5}" class="badge bg-success ms-2">Норма</span>
+                  <span th:if="${soilAnalysis.ph > 7.5}" class="badge bg-warning ms-2">Щелочная</span>
+                </p>
+                <p><strong>Азот (N):</strong>
+                  <span th:text="${soilAnalysis.nitrogen}">25</span> mg/kg
+                  <span th:if="${soilAnalysis.nitrogen < 20}" class="badge bg-danger ms-2">Низкий</span>
+                  <span th:if="${soilAnalysis.nitrogen >= 20 and soilAnalysis.nitrogen <= 40}" class="badge bg-success ms-2">Норма</span>
+                  <span th:if="${soilAnalysis.nitrogen > 40}" class="badge bg-warning ms-2">Высокий</span>
+                </p>
+              </div>
+              <div class="col-md-6">
+                <p><strong>Фосфор (P):</strong>
+                  <span th:text="${soilAnalysis.phosphorus}">15</span> mg/kg
+                  <span th:if="${soilAnalysis.phosphorus < 15}" class="badge bg-danger ms-2">Низкий</span>
+                  <span th:if="${soilAnalysis.phosphorus >= 15 and soilAnalysis.phosphorus <= 30}" class="badge bg-success ms-2">Норма</span>
+                  <span th:if="${soilAnalysis.phosphorus > 30}" class="badge bg-warning ms-2">Высокий</span>
+                </p>
+                <p><strong>Калий (K):</strong>
+                  <span th:text="${soilAnalysis.potassium}">120</span> mg/kg
+                  <span th:if="${soilAnalysis.potassium < 100}" class="badge bg-danger ms-2">Низкий</span>
+                  <span th:if="${soilAnalysis.potassium >= 100 and soilAnalysis.potassium <= 200}" class="badge bg-success ms-2">Норма</span>
+                  <span th:if="${soilAnalysis.potassium > 200}" class="badge bg-warning ms-2">Высокий</span>
+                </p>
+                <p th:if="${soilAnalysis.organicMatter != null}">
+                  <strong>Органическое вещество:</strong>
+                  <span th:text="${soilAnalysis.organicMatter}">2.8</span>%
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-5">
+      <div class="col-lg-8 mx-auto">
+        <h4 class="text-center mb-4">Баланс питательных веществ</h4>
+
+        <div class="mb-3">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="fw-bold">pH: <span th:text="${soilAnalysis.ph}">6.5</span></span>
+            <span th:text="${soilAnalysis.ph < 6.0} ? 'Слишком кислая' :
+                                          ${soilAnalysis.ph > 7.5} ? 'Слишком щелочная' : 'Оптимальная'">
+                                Оптимальная
+                            </span>
+          </div>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar"
+                 th:class="${soilAnalysis.ph < 6.0} ? 'bg-danger' :
+                                          ${soilAnalysis.ph > 7.5} ? 'bg-warning' : 'bg-success'"
+                 th:style="'width: ' + ${(soilAnalysis.ph / 14) * 100} + '%'"
+                 style="width: 46.4%">
+              <span th:text="${soilAnalysis.ph}">6.5</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="fw-bold">Азот (N): <span th:text="${soilAnalysis.nitrogen}">25</span> mg/kg</span>
+            <span th:text="${soilAnalysis.nitrogen < 20} ? 'Дефицит' :
+                                          ${soilAnalysis.nitrogen > 40} ? 'Избыток' : 'Норма'">
+                                Норма
+                            </span>
+          </div>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar"
+                 th:class="${soilAnalysis.nitrogen < 20} ? 'bg-danger' :
+                                          ${soilAnalysis.nitrogen > 40} ? 'bg-warning' : 'bg-success'"
+                 th:style="'width: ' + ${(soilAnalysis.nitrogen / 200) * 100} + '%'"
+                 style="width: 12.5%">
+              <span th:text="${soilAnalysis.nitrogen}">25</span> mg/kg
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="fw-bold">Фосфор (P): <span th:text="${soilAnalysis.phosphorus}">15</span> mg/kg</span>
+            <span th:text="${soilAnalysis.phosphorus < 15} ? 'Дефицит' :
+                                          ${soilAnalysis.phosphorus > 30} ? 'Избыток' : 'Норма'">
+                                Норма
+                            </span>
+          </div>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar"
+                 th:class="${soilAnalysis.phosphorus < 15} ? 'bg-danger' :
+                                          ${soilAnalysis.phosphorus > 30} ? 'bg-warning' : 'bg-success'"
+                 th:style="'width: ' + ${(soilAnalysis.phosphorus / 100) * 100} + '%'"
+                 style="width: 15%">
+              <span th:text="${soilAnalysis.phosphorus}">15</span> mg/kg
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <div class="d-flex justify-content-between mb-1">
+            <span class="fw-bold">Калий (K): <span th:text="${soilAnalysis.potassium}">120</span> mg/kg</span>
+            <span th:text="${soilAnalysis.potassium < 100} ? 'Дефицит' :
+                                          ${soilAnalysis.potassium > 200} ? 'Избыток' : 'Норма'">
+                                Норма
+                            </span>
+          </div>
+          <div class="progress" style="height: 20px;">
+            <div class="progress-bar"
+                 th:class="${soilAnalysis.potassium < 100} ? 'bg-danger' :
+                                          ${soilAnalysis.potassium > 200} ? 'bg-warning' : 'bg-success'"
+                 th:style="'width: ' + ${(soilAnalysis.potassium / 300) * 100} + '%'"
+                 style="width: 40%">
+              <span th:text="${soilAnalysis.potassium}">120</span> mg/kg
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h3 class="text-center mb-4">Рекомендации по удобрениям</h3>
+
+        <div th:if="${not #lists.isEmpty(recommendations)}">
+          <div th:each="recommendation : ${recommendations}" class="card mb-3 recommendation-card"
+               th:classappend="${recommendation.priority == 'HIGH'} ? 'priority-high' :
+                                            ${recommendation.priority == 'MEDIUM'} ? 'priority-medium' : 'priority-low'">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <h5 class="card-title mb-0" th:text="${recommendation.fertilizerName}">Азофоска</h5>
+                <span class="badge"
+                      th:class="${recommendation.priority == 'HIGH'} ? 'bg-danger' :
+                                                   ${recommendation.priority == 'MEDIUM'} ? 'bg-warning' : 'bg-success'"
+                      th:text="${recommendation.priority == 'HIGH'} ? 'Высокий приоритет' :
+                                                  ${recommendation.priority == 'MEDIUM'} ? 'Средний приоритет' : 'Низкий приоритет'">
+                                        Высокий приоритет
+                                    </span>
+              </div>
+
+              <p class="text-muted mb-2" th:text="${recommendation.reason}">
+                Для восполнения дефицита азота в почве
+              </p>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <p class="mb-1"><strong>Норма внесения:</strong>
+                    <span th:text="${recommendation.applicationRate}">2-3 кг/сотка</span>
+                  </p>
+                  <p class="mb-1"><strong>Сезон:</strong>
+                    <span th:text="${recommendation.season}">Весна</span>
+                  </p>
+                </div>
+                <div class="col-md-6">
+                  <p class="mb-1"><strong>Эффективность:</strong></p>
+                  <div class="progress mb-2" style="height: 10px;">
+                    <div class="progress-bar"
+                         th:style="'width: ' + ${recommendation.effectiveness} + '%'"
+                         th:class="${recommendation.effectiveness > 70} ? 'bg-success' :
+                                                          ${recommendation.effectiveness > 40} ? 'bg-warning' : 'bg-danger'"
+                         style="width: 85%">
+                    </div>
+                  </div>
+                  <span th:text="${recommendation.effectiveness} + '%'">85%</span>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <a th:href="@{'/catalog?search=' + ${recommendation.fertilizerName}}"
+                   class="btn btn-sm btn-outline-primary">
+                  <i class="bi bi-cart me-1"></i>Найти в каталоге
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(recommendations)}" class="text-center py-5">
+          <i class="bi bi-info-circle display-1 text-muted"></i>
+          <h4 class="mt-3">Рекомендации не найдены</h4>
+          <p class="text-muted">Параметры почвы находятся в оптимальном диапазоне</p>
+          <a href="/soilAnalysis/form" class="btn btn-primary mt-2">
+            <i class="bi bi-plus-circle me-2"></i>Новый анализ
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h3 class="text-center mb-4">Рекомендации по улучшению почвы</h3>
+
+        <div th:if="${not #lists.isEmpty(soilRecommendations)}" class="mb-5">
+          <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-lightbulb text-warning me-2 fs-4"></i>
+            <h4 class="mb-0">Что нужно добавить в почву</h4>
+          </div>
+
+          <div class="row">
+            <div th:each="rec : ${soilRecommendations}" class="col-md-6 col-lg-4 mb-3">
+              <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title mb-0 text-primary" th:text="${rec.elementName}">Азот</h5>
+                    <span class="badge"
+                          th:class="${rec.priority == 'HIGH'} ? 'bg-danger' :
+                                                 ${rec.priority == 'MEDIUM'} ? 'bg-warning' : 'bg-info'"
+                          th:text="${rec.priority == 'HIGH'} ? 'Срочно' :
+                                                 ${rec.priority == 'MEDIUM'} ? 'Желательно' : 'Опционально'">
+                                    Срочно
+                                </span>
+                  </div>
+
+                  <p class="text-muted small mb-2" th:text="${rec.reason}">
+                    Низкое содержание в почве
+                  </p>
+
+                  <div class="bg-light p-2 rounded mb-2">
+                    <div class="d-flex justify-content-between small">
+                      <span>Текущий уровень:</span>
+                      <strong th:text="${rec.currentLevel} + ' ' + ${rec.unit}">25 mg/kg</strong>
+                    </div>
+                    <div class="d-flex justify-content-between small">
+                      <span>Целевой уровень:</span>
+                      <strong class="text-success" th:text="${rec.targetLevel} + ' ' + ${rec.unit}">40-60 mg/kg</strong>
+                    </div>
+                    <div class="d-flex justify-content-between small">
+                      <span>Необходимо добавить:</span>
+                      <strong class="text-danger" th:text="${rec.deficitAmount} + ' ' + ${rec.unit}">15 mg/kg</strong>
+                    </div>
+                  </div>
+
+                  <div th:if="${not #lists.isEmpty(rec.solutions)}">
+                    <strong class="small">Способы внесения:</strong>
+                    <ul class="small mb-0 mt-1 ps-3">
+                      <li th:each="solution : ${rec.solutions}" th:text="${solution}">Внесение аммиачной селитры</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(fertilizerRecommendations)}">
+          <div class="d-flex align-items-center mb-3">
+            <i class="bi bi-bag-check text-success me-2 fs-4"></i>
+            <h4 class="mb-0">Конкретные варианты удобрений</h4>
+          </div>
+
+          <div class="row">
+            <div th:each="fert : ${fertilizerRecommendations}" class="col-lg-6 mb-4">
+              <div class="card h-100 fertilizer-card border-0 shadow">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-title mb-0" th:text="${fert.name}">Азофоска</h5>
+                    <span class="badge"
+                          th:class="${fert.type == 'ORGANIC'} ? 'bg-success' :
+                                                 ${fert.type == 'MINERAL'} ? 'bg-primary' : 'bg-secondary'"
+                          th:text="${fert.type}">MINERAL</span>
+                  </div>
+
+                  <div class="mb-3">
+                    <strong>Состав NPK:</strong>
+                    <div class="d-flex gap-2 mt-2">
+                                    <span th:if="${fert.nContent > 0}"
+                                          class="badge bg-info bg-opacity-25 text-info border border-info">
+                                        N: <span th:text="${fert.nContent}">16</span>%
+                                    </span>
+                      <span th:if="${fert.pContent > 0}"
+                            class="badge bg-warning bg-opacity-25 text-warning border border-warning">
+                                        P₂O₅: <span th:text="${fert.pContent}">16</span>%
+                                    </span>
+                      <span th:if="${fert.kContent > 0}"
+                            class="badge bg-success bg-opacity-25 text-success border border-success">
+                                        K₂O: <span th:text="${fert.kContent}">16</span>%
+                                    </span>
+                    </div>
+                  </div>
+
+                  <p class="text-muted small mb-3" th:text="${fert.description}">
+                    Комплексное минеральное удобрение для основного внесения
+                  </p>
+
+                  <div class="row mb-3">
+                    <div class="col-6">
+                      <strong class="small">Норма внесения:</strong>
+                      <div class="small" th:text="${fert.applicationRate}">20-30 г/м²</div>
+                    </div>
+                    <div class="col-6">
+                      <strong class="small">Сезон:</strong>
+                      <div class="small" th:text="${fert.season}">Весна</div>
+                    </div>
+                  </div>
+
+                  <!-- Эффективность -->
+                  <div class="mb-3">
+                    <div class="d-flex justify-content-between small">
+                      <strong>Эффективность для вашей почвы:</strong>
+                      <span th:text="${fert.effectiveness} + '%'">85%</span>
+                    </div>
+                    <div class="progress mb-1" style="height: 6px;">
+                      <div class="progress-bar"
+                           th:style="'width: ' + ${fert.effectiveness} + '%'"
+                           th:class="${fert.effectiveness >= 80} ? 'bg-success' :
+                                                    ${fert.effectiveness >= 60} ? 'bg-warning' : 'bg-danger'">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div th:if="${not #lists.isEmpty(fert.solvesProblems)}" class="mb-3">
+                    <strong class="small">Решает проблемы:</strong>
+                    <div class="d-flex flex-wrap gap-1 mt-1">
+                                    <span th:each="problem : ${fert.solvesProblems}"
+                                          class="badge bg-light text-dark border small">
+                                        <i class="bi bi-check-circle text-success me-1"></i>
+                                        <span th:text="${problem}">Дефицит азота</span>
+                                    </span>
+                    </div>
+                  </div>
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="h5 mb-0 text-primary" th:text="'₽' + ${#numbers.formatDecimal(fert.price, 0, 0)}">₽1500</span>
+                    <div>
+                      <a th:href="@{'/catalog/' + ${fert.id}}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-cart me-1"></i>Купить
+                      </a>
+                      <button class="btn btn-outline-secondary btn-sm ms-1"
+                              data-bs-toggle="tooltip" title="Добавить в сравнение">
+                        <i class="bi bi-bar-chart"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(soilRecommendations) and #lists.isEmpty(fertilizerRecommendations)}"
+             class="text-center py-5">
+          <i class="bi bi-emoji-smile display-1 text-success"></i>
+          <h4 class="mt-3">Идеальный баланс!</h4>
+          <p class="text-muted">Все показатели почвы находятся в оптимальном диапазоне</p>
+          <div class="mt-4">
+            <a href="/catalog" class="btn btn-primary me-2">
+              <i class="bi bi-cart me-2"></i>Посмотреть удобрения
+            </a>
+            <a href="/soilAnalysis/form" class="btn btn-outline-primary">
+              <i class="bi bi-plus-circle me-2"></i>Новый анализ
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h3 class="text-center mb-4">Рекомендации по улучшению почвы</h3>
+
+        <div th:if="${not #lists.isEmpty(soilRecommendations)}" class="mb-5">
+          <h4 class="mb-3">Что нужно добавить в почву:</h4>
+          <div class="row">
+            <div th:each="recommendation : ${soilRecommendations}" class="col-md-6 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title mb-0" th:text="${recommendation.elementName}">Азот</h5>
+                    <span class="badge"
+                          th:class="${recommendation.priority == 'HIGH'} ? 'bg-danger' :
+                                                 ${recommendation.priority == 'MEDIUM'} ? 'bg-warning' : 'bg-info'"
+                          th:text="${recommendation.priority == 'HIGH'} ? 'Срочно' :
+                                                 ${recommendation.priority == 'MEDIUM'} ? 'Рекомендуется' : 'По желанию'">
+                                    Срочно
+                                </span>
+                  </div>
+
+                  <p class="text-muted mb-2" th:text="${recommendation.reason}">
+                    Дефицит элемента в почве
+                  </p>
+
+                  <div class="mb-2">
+                    <strong>Текущий уровень:</strong>
+                    <span th:text="${recommendation.currentLevel} + ' ' + ${recommendation.unit}">25 mg/kg</span>
+                  </div>
+
+                  <div class="mb-2">
+                    <strong>Рекомендуемый уровень:</strong>
+                    <span th:text="${recommendation.targetLevel} + ' ' + ${recommendation.unit}">40-60 mg/kg</span>
+                  </div>
+
+                  <div class="mb-3">
+                    <strong>Дефицит:</strong>
+                    <span th:text="${recommendation.deficitAmount} + ' ' + ${recommendation.unit}">15 mg/kg</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(fertilizerRecommendations)}">
+          <h4 class="mb-3">Рекомендуемые удобрения:</h4>
+          <div class="row">
+            <div th:each="fertilizer : ${fertilizerRecommendations}" class="col-lg-6 mb-4">
+              <div class="card h-100 fertilizer-card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-3">
+                    <h5 class="card-title mb-0" th:text="${fertilizer.name}">Азофоска</h5>
+                    <span class="badge bg-primary" th:text="${fertilizer.type}">NPK</span>
+                  </div>
+
+                  <div class="mb-3">
+                    <strong>Состав:</strong>
+                    <div class="d-flex gap-3 mt-1">
+                                    <span th:if="${fertilizer.nContent > 0}" class="badge bg-info">
+                                        N: <span th:text="${fertilizer.nContent}">16</span>%
+                                    </span>
+                      <span th:if="${fertilizer.pContent > 0}" class="badge bg-warning text-dark">
+                                        P: <span th:text="${fertilizer.pContent}">16</span>%
+                                    </span>
+                      <span th:if="${fertilizer.kContent > 0}" class="badge bg-success">
+                                        K: <span th:text="${fertilizer.kContent}">16</span>%
+                                    </span>
+                    </div>
+                  </div>
+
+                  <p class="text-muted mb-3" th:text="${fertilizer.description}">
+                    Комплексное минеральное удобрение
+                  </p>
+
+                  <div class="row mb-3">
+                    <div class="col-6">
+                      <strong>Норма внесения:</strong>
+                      <div th:text="${fertilizer.applicationRate}">2-3 кг/сотка</div>
+                    </div>
+                    <div class="col-6">
+                      <strong>Сезон:</strong>
+                      <div th:text="${fertilizer.season}">Весна-Лето</div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <strong>Эффективность для вашей почвы:</strong>
+                    <div class="progress mb-2" style="height: 8px;">
+                      <div class="progress-bar"
+                           th:style="'width: ' + ${fertilizer.effectiveness} + '%'"
+                           th:class="${fertilizer.effectiveness > 70} ? 'bg-success' :
+                                                    ${fertilizer.effectiveness > 40} ? 'bg-warning' : 'bg-danger'">
+                      </div>
+                    </div>
+                    <small th:text="${fertilizer.effectiveness} + '% соответствия'">85% соответствия</small>
+                  </div>
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="h5 mb-0 text-primary" th:text="'₽' + ${fertilizer.price}">₽1500</span>
+                    <a th:href="@{'/catalog/' + ${fertilizer.id}}" class="btn btn-primary btn-sm">
+                      <i class="bi bi-cart me-1"></i>Купить
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div th:if="${#lists.isEmpty(soilRecommendations) and #lists.isEmpty(fertilizerRecommendations)}"
+             class="text-center py-5">
+          <i class="bi bi-check-circle display-1 text-success"></i>
+          <h4 class="mt-3">Почва в отличном состоянии!</h4>
+          <p class="text-muted">Все параметры находятся в оптимальном диапазоне</p>
+          <div class="mt-4">
+            <a href="/soilAnalysis/form" class="btn btn-outline-primary me-2">
+              <i class="bi bi-plus-circle me-2"></i>Новый анализ
+            </a>
+            <a href="/catalog" class="btn btn-primary">
+              <i class="bi bi-cart me-2"></i>В каталог
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-lg-8 mx-auto text-center">
+        <a href="/soilAnalysis/form" class="btn btn-outline-primary me-3">
+          <i class="bi bi-arrow-repeat me-2"></i>Сделать новый анализ
+        </a>
+        <a href="/catalog" class="btn btn-primary">
+          <i class="bi bi-cart me-2"></i>Перейти в каталог
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <strong class="small">Продавец:</strong>
+    <div class="d-flex align-items-center mt-1">
+      <img th:if="${fert.seller.logoUrl}"
+           th:src="${fert.seller.logoUrl}"
+           class="rounded me-2"
+           style="width: 24px; height: 24px; object-fit: cover;">
+      <div>
+        <div class="small">
+          <span th:text="${fert.sellerName}">АгроСнаб</span>
+          <span th:if="${fert.seller.isVerified}" class="text-primary ms-1">
+                    <i class="bi bi-patch-check-fill"></i>
+                </span>
+        </div>
+        <div class="small text-muted">
+          <span th:text="${fert.sellerRating}">4.8</span>
+          <i class="bi bi-star-fill text-warning ms-1"></i>
+          <span class="ms-2" th:text="'(' + ${fert.seller.reviewCount} + ' отзывов)'">(124 отзыва)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="py-4 bg-light mt-5">
+  <div class="container text-center">
+    <p class="mb-0">© 2025 Smart Soil Care. Все права защищены.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

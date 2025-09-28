@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Вход в систему</title>
+  <style>
+    .auth-wrapper {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      padding: 2rem 0;
+    }
+    .auth-card {
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: none;
+    }
+    .auth-logo {
+      max-height: 80px;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+<section layout:fragment="content">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <div class="auth-wrapper">
+          <div class="col-md-6 col-lg-5">
+            <div class="card auth-card">
+              <div class="card-body p-4 p-md-5">
+                <!-- Логотип -->
+                <div class="text-center mb-4">
+                  <img src="/images/soilcare-logo.png" alt="SoilCare" class="auth-logo">
+                  <h3 class="mt-3">Вход в систему</h3>
+                  <p class="text-muted">Введите ваши учетные данные</p>
+                </div>
+
+                <!-- Сообщения -->
+                <div th:if="${param.registered}" class="alert alert-success" role="alert">
+                  <i class="bi bi-check-circle me-2"></i>Регистрация успешна! Теперь вы можете войти.
+                </div>
+                <div th:if="${error}" class="alert alert-danger" role="alert">
+                  <i class="bi bi-exclamation-triangle me-2"></i>
+                  <span th:text="${error}"></span>
+                </div>
+
+                <!-- Форма входа -->
+                <form th:action="@{/auth/login}" th:object="${loginRequest}" method="post">
+                  <div class="mb-3">
+                    <label class="form-label">Логин</label>
+                    <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-person"></i>
+                                            </span>
+                      <input type="text" class="form-control" th:field="*{username}"
+                             placeholder="Введите ваш логин" required>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Пароль</label>
+                    <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-lock"></i>
+                                            </span>
+                      <input type="password" class="form-control" th:field="*{password}"
+                             placeholder="Введите ваш пароль" required>
+                    </div>
+                    <div class="form-text">
+                      <a href="#" class="text-decoration-none">Забыли пароль?</a>
+                    </div>
+                  </div>
+
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Запомнить меня</label>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary w-100 py-2 mb-3">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Войти
+                  </button>
+
+                  <div class="text-center">
+                    <span class="text-muted">Еще нет аккаунта? </span>
+                    <a th:href="@{/auth/register}" class="text-decoration-none">Зарегистрироваться</a>
+                  </div>
+                </form>
+
+                <!-- Разделитель -->
+                <div class="position-relative my-4">
+                  <hr>
+                  <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">
+                                        или
+                                    </span>
+                </div>
+
+                <!-- Социальные сети -->
+                <div class="text-center">
+                  <p class="text-muted mb-2">Войти через социальные сети</p>
+                  <div class="d-flex justify-content-center gap-2">
+                    <a href="#" class="btn btn-outline-secondary btn-sm">
+                      <i class="bi bi-google"></i> Google
+                    </a>
+                    <a href="#" class="btn btn-outline-secondary btn-sm">
+                      <i class="bi bi-vk"></i> VK
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Демо-аккаунты -->
+            <div class="mt-4">
+              <div class="card">
+                <div class="card-body p-3">
+                  <h6 class="card-title mb-2">
+                    <i class="bi bi-info-circle me-2"></i>Демо-аккаунты:
+                  </h6>
+                  <div class="row small">
+                    <div class="col-6">
+                      <strong>user</strong> - Обычный пользователь
+                    </div>
+                    <div class="col-6">
+                      <strong>seller</strong> - Продавец
+                    </div>
+                    <div class="col-6 mt-1">
+                      <strong>admin</strong> - Администратор
+                    </div>
+                    <div class="col-6 mt-1">
+                      <strong>любой пароль</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Контакты - Smart Soil Care</title>
+    <style>
+        .contacts-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        .contact-card {
+            border: none;
+            transition: all 0.3s ease;
+            height: 100%;
+            margin-bottom: 1.5rem;
+        }
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .contact-icon {
+            font-size: 2.5rem;
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 400px;
+            margin-top: 2rem;
+        }
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+        .social-icon:hover {
+            transform: scale(1.1);
+        }
+        .office-hours {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+
+    <!-- Шапка контактов -->
+    <section class="contacts-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-4">Свяжитесь с нами</h1>
+                    <p class="lead mb-4">Мы всегда готовы помочь вам с вопросами о почве, удобрениях и сельском хозяйстве</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Основное содержание -->
+    <section class="py-5">
+        <div class="container">
+
+            <!-- Контактная информация в grid -->
+            <div class="contact-grid">
+
+                <!-- Адрес -->
+                <div class="card contact-card">
+                    <div class="card-body text-center">
+                        <i class="bi bi-geo-alt-fill contact-icon"></i>
+                        <h5>Адрес</h5>
+                        <p class="text-muted">
+                            г. Москва, ул. Агрономическая, 123<br>
+                            Бизнес-центр "Плодородие", офис 456
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Телефоны -->
+                <div class="card contact-card">
+                    <div class="card-body text-center">
+                        <i class="bi bi-telephone-fill contact-icon"></i>
+                        <h5>Телефоны</h5>
+                        <p class="text-muted mb-2">
+                            <i class="bi bi-phone me-2"></i>+7 (495) 123-45-67
+                        </p>
+                        <p class="text-muted mb-2">
+                            <i class="bi bi-whatsapp me-2"></i>+7 (900) 123-45-67
+                        </p>
+                        <p class="text-muted">
+                            <i class="bi bi-telegram me-2"></i>@smartsoilcare
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="card contact-card">
+                    <div class="card-body text-center">
+                        <i class="bi bi-envelope-fill contact-icon"></i>
+                        <h5>Email</h5>
+                        <p class="text-muted mb-2">
+                            <i class="bi bi-envelope me-2"></i>info@soilcare.ru
+                        </p>
+                        <p class="text-muted mb-2">
+                            <i class="bi bi-chat-dots me-2"></i>support@soilcare.ru
+                        </p>
+                        <p class="text-muted">
+                            <i class="bi bi-briefcase me-2"></i>sales@soilcare.ru
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- График работы -->
+            <div class="office-hours text-center">
+                <h4 class="mb-4">🕒 График работы</h4>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span><strong>Понедельник - Пятница:</strong></span>
+                            <span>9:00 - 18:00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span><strong>Суббота:</strong></span>
+                            <span>10:00 - 16:00</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span><strong>Воскресенье:</strong></span>
+                            <span>Выходной</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Социальные сети -->
+            <div class="text-center my-5">
+                <h4 class="mb-4">Мы в социальных сетях</h4>
+                <div class="d-flex justify-content-center flex-wrap">
+                    <a href="#" class="social-icon bg-primary text-white">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="#" class="social-icon bg-info text-white">
+                        <i class="bi bi-telegram"></i>
+                    </a>
+                    <a href="#" class="social-icon bg-success text-white">
+                        <i class="bi bi-whatsapp"></i>
+                    </a>
+                    <a href="#" class="social-icon bg-danger text-white">
+                        <i class="bi bi-youtube"></i>
+                    </a>
+                    <a href="#" class="social-icon bg-dark text-white">
+                        <i class="bi bi-github"></i>
+                    </a>
+                </div>
+                <p class="text-muted mt-3">Подписывайтесь на наши соцсети для получения полезных советов и новостей</p>
+            </div>
+
+            <!-- Карта -->
+            <div class="map-container">
+                <h4 class="text-center mb-4">📍 Как нас найти</h4>
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A1a2b3c4d5e6f7g8h9i0j&amp;source=constructor"
+                        width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+            </div>
+
+            <!-- Дополнительные способы связи -->
+            <div class="row mt-5">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 text-center">
+                        <div class="card-body">
+                            <i class="bi bi-chat-dots display-4 text-success mb-3"></i>
+                            <h5>Онлайн-чат</h5>
+                            <p class="text-muted">Мгновенная помощь через встроенный чат на сайте</p>
+                            <button class="btn btn-outline-success">Открыть чат</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 text-center">
+                        <div class="card-body">
+                            <i class="bi bi-people display-4 text-success mb-3"></i>
+                            <h5>Сообщество</h5>
+                            <p class="text-muted">Присоединяйтесь к нашему сообществу фермеров</p>
+                            <a href="#" class="btn btn-outline-success">Вступить</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 border-0 text-center">
+                        <div class="card-body">
+                            <i class="bi bi-file-text display-4 text-success mb-3"></i>
+                            <h5>База знаний</h5>
+                            <p class="text-muted">Полезные статьи и техническая документация</p>
+                            <a th:href="@{/knowledge-base}" class="btn btn-outline-success">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</section>
+</body>
+</html>

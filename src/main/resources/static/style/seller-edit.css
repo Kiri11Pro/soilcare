@@ -1,0 +1,14 @@
+.edit-card {
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.form-section {
+    border-left: 4px solid #3A7D44;
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+}
+.card-body h5 ,
+.card-body h6  {
+
+    color: #3A7D44 !important;
+}

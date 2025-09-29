@@ -18,12 +18,12 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 
         Page<Review> findByFertilizerIdOrderByCreatedAtDesc(Long fertilizerId, Pageable pageable);
 
-    // Случайная выборка для PostgreSQL (все отзывы)
+
     @Query(value = "SELECT * FROM reviews ORDER BY RANDOM() LIMIT :limit",
             nativeQuery = true)
     List<Review> findRandomReviews(@Param("limit") int limit);
 
-    // Если хотите только отзывы с определенным рейтингом (например, 4+)
+
     @Query(value = "SELECT * FROM reviews WHERE rating >= 4 ORDER BY RANDOM() LIMIT :limit",
             nativeQuery = true)
     List<Review> findRandomTopReviews(@Param("limit") int limit);
@@ -41,10 +41,10 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("SELECT r FROM Review r WHERE r.seller.id = :sellerId OR (r.fertilizer IS NOT NULL AND r.fertilizer.seller.id = :sellerId)")
     List<Review> findBySellerIdOrFertilizerSellerId(@Param("sellerId") Long sellerId, @Param("sellerId") Long sellerId2);
 
-    // Отзывы только на продавца
+
     List<Review> findBySellerIdAndFertilizerIsNull(Long sellerId);
 
-    // Отзывы только на товары продавца
+
     List<Review> findByFertilizerSellerId(Long sellerId);
 
 

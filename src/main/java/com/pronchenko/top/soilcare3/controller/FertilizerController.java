@@ -26,21 +26,26 @@ public class FertilizerController {
         this.sellerService = sellerService;
     }
 
-    // Каталог всех удобрений
+
     @GetMapping("/catalog")
-    public String showCatalog(Model model,
+    public String showCatalog(@RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "15") int size, Model model,
                               @RequestParam(required = false) String search,
                               @RequestParam(required = false) FertilizerType type,
                               @RequestParam(required = false) Season season) {
-        List<Fertilizer> fertilizers;
+
+        List<Fertilizer> allFertilizers;
 
         if (search != null && !search.isEmpty()) {
-            fertilizers = fertilizerService.searchFertilizers(search);
+            allFertilizers = fertilizerService.searchFertilizers(search);
         } else if (type != null || season != null) {
-            fertilizers = fertilizerService.filterFertilizers(type, season);
+            allFertilizers = fertilizerService.filterFertilizers(type, season);
         } else {
-            fertilizers = fertilizerService.getAllFertilizers();
+            allFertilizers = fertilizerService.getAllFertilizers();
         }
+        int start = page * size;
+        int end = Math.min(start + size, allFertilizers.size());
+        List<Fertilizer> fertilizers = allFertilizers.subList(start, end);
 
         model.addAttribute("fertilizers", fertilizers);
         model.addAttribute("fertilizerTypes", FertilizerType.values());
@@ -48,11 +53,12 @@ public class FertilizerController {
         model.addAttribute("searchTerm", search);
         model.addAttribute("selectedType", type);
         model.addAttribute("selectedSeason", season);
-
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", (int) Math.ceil((double) allFertilizers.size() / size));
+        model.addAttribute("totalFertilizers", allFertilizers.size());
         return "fertilizer/catalog";
     }
 
-    // Детальная страница удобрения
     @GetMapping("/{id}")
     public String showFertilizerDetails(@PathVariable Long id, Model model) {
         Fertilizer fertilizer = fertilizerService.getFertilizerById(id);
@@ -60,7 +66,6 @@ public class FertilizerController {
         return "fertilizer/details";
     }
 
-    // Форма добавления удобрения
     @GetMapping("/add")
     public String showAddFertilizerForm(Model model) {
         model.addAttribute("fertilizer", new Fertilizer());
@@ -70,7 +75,6 @@ public class FertilizerController {
         return "fertilizer/add";
     }
 
-    // Сохранение удобрения
     @PostMapping("/save")
     public String saveFertilizer(@ModelAttribute Fertilizer fertilizer,
                                  @RequestParam Long sellerId,
@@ -92,7 +96,6 @@ public class FertilizerController {
     }
 
 
-    // Список удобрений
     @GetMapping("/list")
     public String listFertilizers(Model model) {
         model.addAttribute("fertilizers", fertilizerService.getAllFertilizers());

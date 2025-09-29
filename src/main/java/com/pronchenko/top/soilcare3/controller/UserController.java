@@ -91,12 +91,7 @@ public class UserController {
             currentUser.setPhone(userDetails.getPhone());
             currentUser.setAddress(userDetails.getAddress());
             currentUser.setCity(userDetails.getCity());
-
-//            User updatedUser = userService.updateUser(currentUser);
-//            session.setAttribute("user", updatedUser);
-
             return "redirect:/profile?updated=true";
-
         } catch (Exception e) {
             model.addAttribute("error", "Ошибка при обновлении профиля: " + e.getMessage());
             return "user/edit-profile";
@@ -113,7 +108,6 @@ public class UserController {
         List<SoilAnalyse> allAnalyses = soilAnalyseService.getAnalysesByUserId(currentUser.getId());
         List<Review> allReviews = reviewService.getReviewsByUserId(currentUser.getId());
 
-        // Добавляем ВСЕ необходимые атрибуты для меню профиля
         model.addAttribute("user", currentUser);
         model.addAttribute("analyses", allAnalyses);
         model.addAttribute("reviews", allReviews);
@@ -130,7 +124,6 @@ public class UserController {
         List<SoilAnalyse> allAnalyses = soilAnalyseService.getAnalysesByUserId(currentUser.getId());
         List<Review> allReviews = reviewService.getReviewsByUserId(currentUser.getId());
 
-        // Добавляем ВСЕ необходимые атрибуты для меню профиля
         model.addAttribute("user", currentUser);
         model.addAttribute("analyses", allAnalyses);
         model.addAttribute("reviews", allReviews);
@@ -147,7 +140,6 @@ public class UserController {
         List<SoilAnalyse> allAnalyses = soilAnalyseService.getAnalysesByUserId(currentUser.getId());
         List<Review> allReviews = reviewService.getReviewsByUserId(currentUser.getId());
 
-        // Добавляем ВСЕ необходимые атрибуты для меню профиля
         model.addAttribute("user", currentUser);
         model.addAttribute("analyses", allAnalyses);
         model.addAttribute("reviews", allReviews);
@@ -165,7 +157,6 @@ public class UserController {
         List<SoilAnalyse> allAnalyses = soilAnalyseService.getAnalysesByUserId(currentUser.getId());
         List<Review> allReviews = reviewService.getReviewsByUserId(currentUser.getId());
 
-        // Добавляем ВСЕ необходимые атрибуты для меню профиля
         model.addAttribute("user", currentUser);
         model.addAttribute("analyses", allAnalyses);
         model.addAttribute("reviews", allReviews);

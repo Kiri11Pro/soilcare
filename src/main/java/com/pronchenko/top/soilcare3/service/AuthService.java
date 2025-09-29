@@ -22,9 +22,9 @@ public class AuthService {
             User user = userService.findByUsername(username);
 
 
-             if (!passwordEncoder.matches(password, user.getPassword())) {
-                 throw new RuntimeException("Неверный пароль");
-             }
+            if (!passwordEncoder.matches(password, user.getPassword())) {
+                throw new RuntimeException("Неверный пароль");
+            }
 
             return user;
         } catch (Exception e) {

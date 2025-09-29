@@ -14,11 +14,16 @@ import java.util.List;
 
 @Controller
 public class HomeController {
-    @Autowired
-    private FertilizerService fertilizerService;
-    @Autowired
-    private ReviewService reviewService;
-    @GetMapping({"/", "/index", "/home","/soil-analysis"})
+    private final FertilizerService fertilizerService;
+    private final ReviewService reviewService;
+@Autowired
+    public HomeController(FertilizerService fertilizerService, ReviewService reviewService) {
+        this.fertilizerService = fertilizerService;
+        this.reviewService = reviewService;
+    }
+
+
+    @GetMapping({"/", "/index", "/home", "/soil-analysis"})
     public String home(Model model) {
         model.addAttribute("soilAnalysis", new SoilAnalyse());
         model.addAttribute("pageTitle", "SoilCare - Анализ почвы");
@@ -28,22 +33,27 @@ public class HomeController {
         model.addAttribute("randomReviews", randomReviews);
         return "index";
     }
+
     @GetMapping("/about")
     public String about() {
         return "about";
     }
+
     @GetMapping("/faq")
     public String faq() {
         return "faq";
     }
+
     @GetMapping("/blog")
     public String blog() {
         return "blog";
     }
+
     @GetMapping("/knowledge-base")
     public String knowledgeBase() {
         return "knowledge-base";
     }
+
     @GetMapping("/contacts")
     public String contacts() {
         return "contacts";

@@ -45,6 +45,6 @@ public class Recommendation {
 
     public void addSolution(String solution) {
         this.solutions.add(solution);
-        this.applicationRates.add(""); // Пустая норма внесения
+        this.applicationRates.add("");
     }
 }

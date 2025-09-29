@@ -1,7 +1,7 @@
 
 :root {
     --primary-color: #3A7D44;
-    --secondary-color: #2E5A88;
+    --secondary-color: #41ad49;
     --light-color: #F8F9FA;
 }
 
@@ -12,7 +12,7 @@ body {
 .hero-section {
     background: url("images/banner2.png");
 
-    /*background: linear-gradient(rgba(0, 0, 0, 0.6),url("/images/banner2.png");*/
+
     background-size: cover;
     background-position: center;
     color: white;
@@ -46,13 +46,29 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    background-color: #3A7D44;
+    border-color: #3A7D44;
 }
+
+.btn-primary:hover {
+    background-color: #3A7D44;
+    color: white;
+    border-color: #3A7D44;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(44, 85, 48, 0.3);
+}
+
 
 .btn-outline-primary {
     color: var(--primary-color);
     border-color: var(--primary-color);
+}
+.btn-outline-primary:hover {
+    background-color: #3A7D44;
+    color: white;
+    border-color: #3A7D44;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(44, 85, 48, 0.3);
 }
 
 footer {

@@ -6,6 +6,10 @@ import com.pronchenko.top.soilcare3.entity.Season;
 import com.pronchenko.top.soilcare3.repository.FertilizerRepository;
 import com.pronchenko.top.soilcare3.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -81,4 +85,6 @@ public class FertilizerService {
     public Long countFertilizersBySellerId(Long sellerId) {
         return fertilizerRepository.countBySellerId(sellerId);
     }
+
+
 }

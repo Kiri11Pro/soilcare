@@ -10,7 +10,7 @@
 <body>
 <section layout:fragment="content">
     <div class="container mt-4">
-        <!-- Заголовок -->
+
         <div class="row mb-4">
             <div class="col-12">
                 <h2>
@@ -22,7 +22,7 @@
                 </p>
 
 
-                <!-- Форма поиска -->
+
                 <form th:action="@{/search}" method="get" class="mb-4">
                     <div class="input-group">
                         <input type="text" class="form-control" name="q"
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <!-- Удобрения -->
+
         <div th:if="${not #lists.isEmpty(fertilizers)}" class="mb-5">
             <h4 class="mb-3">
                 <i class="bi bi-egg-fill me-2"></i>Удобрения
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <!-- Продавцы -->
+
         <div th:if="${not #lists.isEmpty(sellers)}" class="mb-5">
             <h4 class="mb-3">
                 <i class="bi bi-shop me-2"></i>Продавцы
@@ -90,7 +90,7 @@
             </div>
         </div>
 
-        <!-- Нет результатов -->
+
         <div th:if="${#lists.isEmpty(fertilizers) and #lists.isEmpty(sellers)}"
              class="text-center py-5">
             <i class="bi bi-search display-4 text-muted"></i>

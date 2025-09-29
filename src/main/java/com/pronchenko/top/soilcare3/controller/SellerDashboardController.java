@@ -52,6 +52,7 @@ public class SellerDashboardController {
 
         return "seller/dashboard";
     }
+
     @GetMapping("/complete")
     public String completeRegistration() {
         return "seller/complete-registration";
@@ -112,11 +113,8 @@ public class SellerDashboardController {
         if (currentUser == null || currentUser.getRole() != Role.SELLER) {
             return "redirect:/auth/login";
         }
-
         Seller seller = sellerService.getSellerByUser(currentUser);
         List<Review> reviews = reviewService.getReviewsBySellerId(seller.getId());
-
-        // Разделяем отзывы на продавца и на товары
         long sellerReviewsCount = reviews.stream()
                 .filter(review -> review.getSeller() != null && review.getFertilizer() == null)
                 .count();
@@ -132,6 +130,7 @@ public class SellerDashboardController {
 
         return "seller/my-reviews";
     }
+
     @PostMapping("/reviews/delete/{id}")
     public String deleteReview(@PathVariable Long id,
                                HttpSession session,
@@ -184,6 +183,7 @@ public class SellerDashboardController {
 
         return "seller/statistics";
     }
+
     @GetMapping("/fertilizers/add")
     public String showAddForm(Model model, HttpSession session) {
         User currentUser = getCurrentUser(session);
@@ -209,14 +209,10 @@ public class SellerDashboardController {
             if (currentUser == null || currentUser.getRole() != Role.SELLER) {
                 return "redirect:/auth/login";
             }
-
             Seller seller = sellerService.getSellerByUser(currentUser);
-
-
             fertilizer.setSeller(seller);
             fertilizer.setFertilizerRating(0.0);
             fertilizer.setReviewCount(0);
-
             Fertilizer savedFertilizer = fertilizerService.saveFertilizer(fertilizer);
             return "redirect:/seller-dashboard/fertilizers?success=success";
 

@@ -5,7 +5,6 @@ import com.pronchenko.top.soilcare3.entity.User;
 import com.pronchenko.top.soilcare3.service.FertilizerService;
 import com.pronchenko.top.soilcare3.service.ReviewService;
 import com.pronchenko.top.soilcare3.service.SellerService;
-import com.pronchenko.top.soilcare3.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,17 +19,14 @@ import java.util.Map;
 @RequestMapping("/reviews")
 public class ReviewController {
     private final ReviewService reviewService;
-    private final UserService userService;
     private final FertilizerService fertilizerService;
     private final SellerService sellerService;
 
     @Autowired
     public ReviewController(ReviewService reviewService,
-                            UserService userService,
                             FertilizerService fertilizerService,
                             SellerService sellerService) {
         this.reviewService = reviewService;
-        this.userService = userService;
         this.fertilizerService = fertilizerService;
         this.sellerService = sellerService;
     }
@@ -61,8 +57,6 @@ public class ReviewController {
         return "reviews/add-seller-review";
     }
 
-
-
     @PostMapping("/fertilizer/save")
     public String saveFertilizerReview(@ModelAttribute Review review,
                                        @RequestParam Long fertilizerId,
@@ -74,16 +68,10 @@ public class ReviewController {
             if (currentUser == null) {
                 return "redirect:/auth/login";
             }
-
             review.setUser(currentUser);
             review.setRating(rating);
-
-
             reviewService.saveReview(review, fertilizerId, null);
-
-
             fertilizerService.updateFertilizerRating(fertilizerId);
-
             return "redirect:/fertilizers/" + fertilizerId;
         } catch (Exception e) {
             model.addAttribute("error", "Ошибка при сохранении отзыва: " + e.getMessage());
@@ -103,16 +91,10 @@ public class ReviewController {
             if (currentUser == null) {
                 return "redirect:/auth/login";
             }
-
             review.setUser(currentUser);
             review.setRating(rating);
-
-
             reviewService.saveReview(review, null, sellerId);
-
-
             sellerService.updateSellerRating(sellerId);
-
             return "redirect:/sellers/" + sellerId;
         } catch (Exception e) {
             model.addAttribute("error", "Ошибка при сохранении отзыва: " + e.getMessage());
@@ -137,34 +119,24 @@ public class ReviewController {
         List<Review> reviews = reviewService.getReviewsBySellerId(sellerId);
         Double averageRating = reviewService.getAverageRatingForSeller(sellerId);
         Integer reviewCount = reviewService.getReviewCountForSeller(sellerId);
-
-
         Map<Integer, Integer> ratingDistribution = calculateRatingDistribution(reviews);
-
         model.addAttribute("reviews", reviews);
         model.addAttribute("averageRating", averageRating);
         model.addAttribute("reviewCount", reviewCount);
         model.addAttribute("sellerId", sellerId);
         model.addAttribute("ratingDistribution", ratingDistribution);
-
         return "reviews/seller-reviews";
     }
 
     private Map<Integer, Integer> calculateRatingDistribution(List<Review> reviews) {
         Map<Integer, Integer> distribution = new HashMap<>();
-
-
         for (int i = 1; i <= 5; i++) {
             distribution.put(i, 0);
         }
-
-
         for (Review review : reviews) {
             int rating = review.getRating();
             distribution.put(rating, distribution.get(rating) + 1);
         }
-
-
         if (!reviews.isEmpty()) {
             for (int i = 1; i <= 5; i++) {
                 int count = distribution.get(i);
@@ -172,7 +144,6 @@ public class ReviewController {
                 distribution.put(i, percentage);
             }
         }
-
         return distribution;
     }
 }

@@ -27,12 +27,11 @@ public class SellerController {
         model.addAttribute("seller", seller);
         return "seller/details";
     }
+
     @GetMapping
     public String getAllSellers(Model model) {
         List<Seller> sellers = sellerService.getAllSellers();
         model.addAttribute("sellers", sellers);
         return "seller/list";
     }
-
-
 }

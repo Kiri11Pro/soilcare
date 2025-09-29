@@ -24,17 +24,14 @@ public class SearchController {
         this.fertilizerService = fertilizerService;
         this.sellerService = sellerService;
     }
-
     @GetMapping
     public String search(@RequestParam String q, Model model) {
         List<Fertilizer> fertilizers = fertilizerService.searchFertilizers(q);
         List<Seller> sellers = sellerService.searchSellers(q);
-
         model.addAttribute("query", q);
         model.addAttribute("fertilizers", fertilizers);
         model.addAttribute("sellers", sellers);
         model.addAttribute("totalResults", fertilizers.size() + sellers.size());
-
         return "search/results";
     }
 }

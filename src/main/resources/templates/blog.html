@@ -65,7 +65,6 @@
 <body>
 <section layout:fragment="content">
 
-    <!-- Шапка блога -->
     <section class="blog-header">
         <div class="container">
             <div class="row">
@@ -73,7 +72,6 @@
                     <h1 class="display-4 fw-bold mb-4">Статьи и блог</h1>
                     <p class="lead mb-4">Экспертные материалы о почве, удобрениях и современном сельском хозяйстве</p>
 
-                    <!-- Поиск по статьям -->
                     <div class="search-box">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Поиск по статьям..." id="blogSearch">
@@ -87,235 +85,235 @@
         </div>
     </section>
 
-    <!-- Основное содержание -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
+<!--    &lt;!&ndash; Основное содержание &ndash;&gt;-->
+<!--    <section class="py-5">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
 
-                <!-- Основная колонка со статьями -->
-                <div class="col-lg-8">
+<!--                &lt;!&ndash; Основная колонка со статьями &ndash;&gt;-->
+<!--                <div class="col-lg-8">-->
 
-                    <!-- Фильтры и сортировка -->
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div class="tag-cloud">
-                            <a href="#" class="tag">Все темы</a>
-                            <a href="#" class="tag">Агрономия</a>
-                            <a href="#" class="tag">Органические удобрения</a>
-                            <a href="#" class="tag">Сезонные работы</a>
-                            <a href="#" class="tag">Сад и огород</a>
-                        </div>
-                        <select class="form-select form-select-sm" style="width: auto;">
-                            <option>Сначала новые</option>
-                            <option>Сначала популярные</option>
-                            <option>По алфавиту</option>
-                        </select>
-                    </div>
+<!--                    &lt;!&ndash; Фильтры и сортировка &ndash;&gt;-->
+<!--                    <div class="d-flex justify-content-between align-items-center mb-4">-->
+<!--                        <div class="tag-cloud">-->
+<!--                            <a href="#" class="tag">Все темы</a>-->
+<!--                            <a href="#" class="tag">Агрономия</a>-->
+<!--                            <a href="#" class="tag">Органические удобрения</a>-->
+<!--                            <a href="#" class="tag">Сезонные работы</a>-->
+<!--                            <a href="#" class="tag">Сад и огород</a>-->
+<!--                        </div>-->
+<!--                        <select class="form-select form-select-sm" style="width: auto;">-->
+<!--                            <option>Сначала новые</option>-->
+<!--                            <option>Сначала популярные</option>-->
+<!--                            <option>По алфавиту</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
 
-                    <!-- Сетка статей -->
-                    <div class="row">
+<!--                    &lt;!&ndash; Сетка статей &ndash;&gt;-->
+<!--                    <div class="row">-->
 
-                        <!-- Статья 1 -->
-                        <div class="col-md-6 mb-4">
-                            <div class="card article-card">
-                                <div class="position-relative">
-                                    <img src="/images/blog/soil-ph.jpg" class="card-img-top article-image" alt="Кислотность почвы">
-                                    <span class="category-badge badge bg-success">Агрономия</span>
-                                </div>
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <small class="text-muted">15 января 2025</small>
-                                        <span class="mx-2">•</span>
-                                        <small class="read-time">5 мин чтения</small>
-                                    </div>
-                                    <h5 class="card-title">Как определить и регулировать кислотность почвы</h5>
-                                    <p class="card-text">Полное руководство по работе с pH почвы: методы измерения, способы раскисления и подбор культур...</p>
-                                    <div class="d-flex align-items-center">
-                                        <img src="/images/authors/author1.jpg" class="author-avatar rounded-circle me-2" alt="Автор">
-                                        <small class="text-muted">Др. Иванова</small>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-transparent">
-                                    <a href="#" class="btn btn-outline-success w-100">Читать статью</a>
-                                </div>
-                            </div>
-                        </div>
+<!--                        &lt;!&ndash; Статья 1 &ndash;&gt;-->
+<!--                        <div class="col-md-6 mb-4">-->
+<!--                            <div class="card article-card">-->
+<!--                                <div class="position-relative">-->
+<!--                                    <img src="/images/blog/soil-ph.jpg" class="card-img-top article-image" alt="Кислотность почвы">-->
+<!--                                    <span class="category-badge badge bg-success">Агрономия</span>-->
+<!--                                </div>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="d-flex align-items-center mb-2">-->
+<!--                                        <small class="text-muted">15 января 2025</small>-->
+<!--                                        <span class="mx-2">•</span>-->
+<!--                                        <small class="read-time">5 мин чтения</small>-->
+<!--                                    </div>-->
+<!--                                    <h5 class="card-title">Как определить и регулировать кислотность почвы</h5>-->
+<!--                                    <p class="card-text">Полное руководство по работе с pH почвы: методы измерения, способы раскисления и подбор культур...</p>-->
+<!--                                    <div class="d-flex align-items-center">-->
+<!--                                        <img src="/images/authors/author1.jpg" class="author-avatar rounded-circle me-2" alt="Автор">-->
+<!--                                        <small class="text-muted">Др. Иванова</small>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="card-footer bg-transparent">-->
+<!--                                    <a href="#" class="btn btn-outline-success w-100">Читать статью</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!-- Статья 2 -->
-                        <div class="col-md-6 mb-4">
-                            <div class="card article-card">
-                                <div class="position-relative">
-                                    <img src="/images/blog/organic-fertilizers.jpg" class="card-img-top article-image" alt="Органические удобрения">
-                                    <span class="category-badge badge bg-warning">Органика</span>
-                                </div>
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <small class="text-muted">12 января 2025</small>
-                                        <span class="mx-2">•</span>
-                                        <small class="read-time">7 мин чтения</small>
-                                    </div>
-                                    <h5 class="card-title">Органические удобрения: полный гид для начинающих</h5>
-                                    <p class="card-text">Компост, биогумус, сидераты - как правильно использовать органику для повышения плодородия...</p>
-                                    <div class="d-flex align-items-center">
-                                        <img src="/images/authors/author2.jpg" class="author-avatar rounded-circle me-2" alt="Автор">
-                                        <small class="text-muted">Проф. Петров</small>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-transparent">
-                                    <a href="#" class="btn btn-outline-success w-100">Читать статью</a>
-                                </div>
-                            </div>
-                        </div>
+<!--                        &lt;!&ndash; Статья 2 &ndash;&gt;-->
+<!--                        <div class="col-md-6 mb-4">-->
+<!--                            <div class="card article-card">-->
+<!--                                <div class="position-relative">-->
+<!--                                    <img src="/images/blog/organic-fertilizers.jpg" class="card-img-top article-image" alt="Органические удобрения">-->
+<!--                                    <span class="category-badge badge bg-warning">Органика</span>-->
+<!--                                </div>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="d-flex align-items-center mb-2">-->
+<!--                                        <small class="text-muted">12 января 2025</small>-->
+<!--                                        <span class="mx-2">•</span>-->
+<!--                                        <small class="read-time">7 мин чтения</small>-->
+<!--                                    </div>-->
+<!--                                    <h5 class="card-title">Органические удобрения: полный гид для начинающих</h5>-->
+<!--                                    <p class="card-text">Компост, биогумус, сидераты - как правильно использовать органику для повышения плодородия...</p>-->
+<!--                                    <div class="d-flex align-items-center">-->
+<!--                                        <img src="/images/authors/author2.jpg" class="author-avatar rounded-circle me-2" alt="Автор">-->
+<!--                                        <small class="text-muted">Проф. Петров</small>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="card-footer bg-transparent">-->
+<!--                                    <a href="#" class="btn btn-outline-success w-100">Читать статью</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!-- Статья 3 -->
-                        <div class="col-md-6 mb-4">
-                            <div class="card article-card">
-                                <div class="position-relative">
-                                    <img src="/images/blog/spring-preparation.jpg" class="card-img-top article-image" alt="Весенние работы">
-                                    <span class="category-badge badge bg-info">Сезонные работы</span>
-                                </div>
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <small class="text-muted">8 января 2025</small>
-                                        <span class="mx-2">•</span>
-                                        <small class="read-time">6 мин чтения</small>
-                                    </div>
-                                    <h5 class="card-title">Подготовка почвы к весеннему сезону: пошаговое руководство</h5>
-                                    <p class="card-text">Что нужно сделать в саду и огороде ранней весной для получения богатого урожая...</p>
-                                    <div class="d-flex align-items-center">
-                                        <img src="/images/authors/author3.jpg" class="author-avatar rounded-circle me-2" alt="Автор">
-                                        <small class="text-muted">Агроном Сидоров</small>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-transparent">
-                                    <a href="#" class="btn btn-outline-success w-100">Читать статью</a>
-                                </div>
-                            </div>
-                        </div>
+<!--                        &lt;!&ndash; Статья 3 &ndash;&gt;-->
+<!--                        <div class="col-md-6 mb-4">-->
+<!--                            <div class="card article-card">-->
+<!--                                <div class="position-relative">-->
+<!--                                    <img src="/images/blog/spring-preparation.jpg" class="card-img-top article-image" alt="Весенние работы">-->
+<!--                                    <span class="category-badge badge bg-info">Сезонные работы</span>-->
+<!--                                </div>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="d-flex align-items-center mb-2">-->
+<!--                                        <small class="text-muted">8 января 2025</small>-->
+<!--                                        <span class="mx-2">•</span>-->
+<!--                                        <small class="read-time">6 мин чтения</small>-->
+<!--                                    </div>-->
+<!--                                    <h5 class="card-title">Подготовка почвы к весеннему сезону: пошаговое руководство</h5>-->
+<!--                                    <p class="card-text">Что нужно сделать в саду и огороде ранней весной для получения богатого урожая...</p>-->
+<!--                                    <div class="d-flex align-items-center">-->
+<!--                                        <img src="/images/authors/author3.jpg" class="author-avatar rounded-circle me-2" alt="Автор">-->
+<!--                                        <small class="text-muted">Агроном Сидоров</small>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="card-footer bg-transparent">-->
+<!--                                    <a href="#" class="btn btn-outline-success w-100">Читать статью</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                        <!-- Статья 4 -->
-                        <div class="col-md-6 mb-4">
-                            <div class="card article-card">
-                                <div class="position-relative">
-                                    <img src="/images/blog/npk-balance.jpg" class="card-img-top article-image" alt="Баланс NPK">
-                                    <span class="category-badge badge bg-primary">Химия почвы</span>
-                                </div>
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <small class="text-muted">5 января 2025</small>
-                                        <span class="mx-2">•</span>
-                                        <small class="read-time">8 мин чтения</small>
-                                    </div>
-                                    <h5 class="card-title">Баланс NPK: как понять, чего не хватает вашей почве</h5>
-                                    <p class="card-text">Разбираемся в азоте, фосфоре и калии - ключевых элементах питания растений...</p>
-                                    <div class="d-flex align-items-center">
-                                        <img src="/images/authors/author4.jpg" class="author-avatar rounded-circle me-2" alt="Автор">
-                                        <small class="text-muted">Др. Козлова</small>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-transparent">
-                                    <a href="#" class="btn btn-outline-success w-100">Читать статью</a>
-                                </div>
-                            </div>
-                        </div>
+<!--                        &lt;!&ndash; Статья 4 &ndash;&gt;-->
+<!--                        <div class="col-md-6 mb-4">-->
+<!--                            <div class="card article-card">-->
+<!--                                <div class="position-relative">-->
+<!--                                    <img src="/images/blog/npk-balance.jpg" class="card-img-top article-image" alt="Баланс NPK">-->
+<!--                                    <span class="category-badge badge bg-primary">Химия почвы</span>-->
+<!--                                </div>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div class="d-flex align-items-center mb-2">-->
+<!--                                        <small class="text-muted">5 января 2025</small>-->
+<!--                                        <span class="mx-2">•</span>-->
+<!--                                        <small class="read-time">8 мин чтения</small>-->
+<!--                                    </div>-->
+<!--                                    <h5 class="card-title">Баланс NPK: как понять, чего не хватает вашей почве</h5>-->
+<!--                                    <p class="card-text">Разбираемся в азоте, фосфоре и калии - ключевых элементах питания растений...</p>-->
+<!--                                    <div class="d-flex align-items-center">-->
+<!--                                        <img src="/images/authors/author4.jpg" class="author-avatar rounded-circle me-2" alt="Автор">-->
+<!--                                        <small class="text-muted">Др. Козлова</small>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="card-footer bg-transparent">-->
+<!--                                    <a href="#" class="btn btn-outline-success w-100">Читать статью</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
 
-                    </div>
+<!--                    </div>-->
 
-                    <!-- Пагинация -->
-                    <nav aria-label="Page navigation" class="mt-5">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#">Назад</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Вперед</a>
-                            </li>
-                        </ul>
-                    </nav>
+<!--                    &lt;!&ndash; Пагинация &ndash;&gt;-->
+<!--                    <nav aria-label="Page navigation" class="mt-5">-->
+<!--                        <ul class="pagination justify-content-center">-->
+<!--                            <li class="page-item disabled">-->
+<!--                                <a class="page-link" href="#">Назад</a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+<!--                            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--                            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link" href="#">Вперед</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </nav>-->
 
-                </div>
+<!--                </div>-->
 
-                <!-- Боковая колонка -->
-                <div class="col-lg-4">
+<!--                &lt;!&ndash; Боковая колонка &ndash;&gt;-->
+<!--                <div class="col-lg-4">-->
 
-                    <!-- Подписка на рассылку -->
-                    <div class="card subscribe-section mb-4">
-                        <div class="card-body text-center py-4">
-                            <i class="bi bi-envelope-check display-4 text-success mb-3"></i>
-                            <h5>Подпишитесь на рассылку</h5>
-                            <p class="text-muted">Получайте новые статьи и советы по уходу за почвой</p>
-                            <form>
-                                <div class="mb-3">
-                                    <input type="email" class="form-control" placeholder="Ваш email">
-                                </div>
-                                <button type="submit" class="btn btn-success w-100">Подписаться</button>
-                            </form>
-                        </div>
-                    </div>
+<!--                    &lt;!&ndash; Подписка на рассылку &ndash;&gt;-->
+<!--                    <div class="card subscribe-section mb-4">-->
+<!--                        <div class="card-body text-center py-4">-->
+<!--                            <i class="bi bi-envelope-check display-4 text-success mb-3"></i>-->
+<!--                            <h5>Подпишитесь на рассылку</h5>-->
+<!--                            <p class="text-muted">Получайте новые статьи и советы по уходу за почвой</p>-->
+<!--                            <form>-->
+<!--                                <div class="mb-3">-->
+<!--                                    <input type="email" class="form-control" placeholder="Ваш email">-->
+<!--                                </div>-->
+<!--                                <button type="submit" class="btn btn-success w-100">Подписаться</button>-->
+<!--                            </form>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                    <!-- Популярные статьи -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-success text-white">
-                            <h6 class="mb-0">Популярные статьи</h6>
-                        </div>
-                        <div class="list-group list-group-flush">
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">10 ошибок при внесении удобрений</h6>
-                                    <small class="text-muted">1.2K просмотров</small>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">Как повысить плодородие за 1 сезон</h6>
-                                    <small class="text-muted">980 просмотров</small>
-                                </div>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">Эко-удобрения своими руками</h6>
-                                    <small class="text-muted">850 просмотров</small>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+<!--                    &lt;!&ndash; Популярные статьи &ndash;&gt;-->
+<!--                    <div class="card mb-4">-->
+<!--                        <div class="card-header bg-success text-white">-->
+<!--                            <h6 class="mb-0">Популярные статьи</h6>-->
+<!--                        </div>-->
+<!--                        <div class="list-group list-group-flush">-->
+<!--                            <a href="#" class="list-group-item list-group-item-action">-->
+<!--                                <div class="d-flex w-100 justify-content-between">-->
+<!--                                    <h6 class="mb-1">10 ошибок при внесении удобрений</h6>-->
+<!--                                    <small class="text-muted">1.2K просмотров</small>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                            <a href="#" class="list-group-item list-group-item-action">-->
+<!--                                <div class="d-flex w-100 justify-content-between">-->
+<!--                                    <h6 class="mb-1">Как повысить плодородие за 1 сезон</h6>-->
+<!--                                    <small class="text-muted">980 просмотров</small>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                            <a href="#" class="list-group-item list-group-item-action">-->
+<!--                                <div class="d-flex w-100 justify-content-between">-->
+<!--                                    <h6 class="mb-1">Эко-удобрения своими руками</h6>-->
+<!--                                    <small class="text-muted">850 просмотров</small>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                    <!-- Авторы -->
-                    <div class="card mb-4">
-                        <div class="card-header bg-success text-white">
-                            <h6 class="mb-0">Наши эксперты</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex align-items-center mb-3">
-                                <img src="/images/authors/author1.jpg" class="author-avatar rounded-circle me-3" alt="Автор">
-                                <div>
-                                    <h6 class="mb-0">Др. Иванова</h6>
-                                    <small class="text-muted">Почвовед, к.х.н.</small>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center mb-3">
-                                <img src="/images/authors/author2.jpg" class="author-avatar rounded-circle me-3" alt="Автор">
-                                <div>
-                                    <h6 class="mb-0">Проф. Петров</h6>
-                                    <small class="text-muted">Агрохимик, д.б.н.</small>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <img src="/images/authors/author3.jpg" class="author-avatar rounded-circle me-3" alt="Автор">
-                                <div>
-                                    <h6 class="mb-0">Агроном Сидоров</h6>
-                                    <small class="text-muted">Практик с 20-летним опытом</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!--                    &lt;!&ndash; Авторы &ndash;&gt;-->
+<!--                    <div class="card mb-4">-->
+<!--                        <div class="card-header bg-success text-white">-->
+<!--                            <h6 class="mb-0">Наши эксперты</h6>-->
+<!--                        </div>-->
+<!--                        <div class="card-body">-->
+<!--                            <div class="d-flex align-items-center mb-3">-->
+<!--                                <img src="/images/authors/author1.jpg" class="author-avatar rounded-circle me-3" alt="Автор">-->
+<!--                                <div>-->
+<!--                                    <h6 class="mb-0">Др. Иванова</h6>-->
+<!--                                    <small class="text-muted">Почвовед, к.х.н.</small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="d-flex align-items-center mb-3">-->
+<!--                                <img src="/images/authors/author2.jpg" class="author-avatar rounded-circle me-3" alt="Автор">-->
+<!--                                <div>-->
+<!--                                    <h6 class="mb-0">Проф. Петров</h6>-->
+<!--                                    <small class="text-muted">Агрохимик, д.б.н.</small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="d-flex align-items-center">-->
+<!--                                <img src="/images/authors/author3.jpg" class="author-avatar rounded-circle me-3" alt="Автор">-->
+<!--                                <div>-->
+<!--                                    <h6 class="mb-0">Агроном Сидоров</h6>-->
+<!--                                    <small class="text-muted">Практик с 20-летним опытом</small>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                </div>
+<!--                </div>-->
 
-            </div>
-        </div>
+<!--            </div>-->
+<!--        </div>-->
     </section>
 
     <!-- JavaScript для поиска -->

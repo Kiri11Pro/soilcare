@@ -1,7 +1,7 @@
-/* Стили для навигации */
+
 .nav-pills .nav-link {
-    background-color: #f8f9fa; /* Светлый фон для неактивных */
-    color: #3A7D44; /* Темно-зеленый текст */
+    background-color: #f8f9fa;
+    color: #3A7D44;
     border: 1px solid #dee2e6;
     transition: all 0.3s ease;
     border-radius: 0.5rem;
@@ -9,43 +9,43 @@
 }
 
 .nav-pills .nav-link:hover {
-    background-color: #e9f5e9; /* Светло-зеленый при наведении */
+    background-color: #e9f5e9;
     color: #3A7D44;
     border-color: #4a7c59;
     transform: translateX(5px);
 }
 
 .nav-pills .nav-link.active {
-    background-color: #3A7D44; /* Темно-зеленый для активной */
-    color: white; /* Белый текст */
+    background-color: #3A7D44;
+    color: white;
     border-color: #3A7D44;
 }
 
 .nav-pills .nav-link.active:hover {
-    background-color: #3A7D44; /* Более темный зеленый при наведении на активную */
+    background-color: #3A7D44;
     color: white;
     border-color: #3A7D44;
     transform: none;
 }
 
-/* Стили для badge (количества анализов и отзывов) */
+
 .nav-pills .nav-link .badge {
-    background-color: #4a7c59 !important; /* Зеленый цвет для badge */
+    background-color: #4a7c59 !important;
     color: white !important;
     transition: all 0.3s ease;
 }
 
 .nav-pills .nav-link:hover .badge {
-    background-color: #3A7D44 !important; /* Темнее при наведении */
+    background-color: #3A7D44 !important;
     transform: scale(1.1);
 }
 
 .nav-pills .nav-link.active .badge {
     background-color: #ffffff !important;
-    color: #3A7D44 !important; /* Темно-зеленый текст на белом фоне */
+    color: #3A7D44 !important;
 }
 
-/* Стили для кнопки редактирования профиля */
+
 .btn-outline-primary {
     color: #3A7D44;
     border-color: #3A7D44;
@@ -60,7 +60,7 @@
     box-shadow: 0 4px 8px rgba(44, 85, 48, 0.3);
 }
 
-/* Дополнительные стили для иконок */
+
 .nav-pills .nav-link i {
     transition: color 0.3s ease;
 }
@@ -73,7 +73,7 @@
     color: white;
 }
 
-/* Стили для карточки профиля */
+
 .profile-card {
     border: 1px solid #e9f5e9;
     box-shadow: 0 2px 4px rgba(44, 85, 48, 0.1);
@@ -96,7 +96,7 @@
     color: #3A7D44;
 }
 
-/* Анимация для всей карточки при наведении */
+
 .profile-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -105,24 +105,24 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(44, 85, 48, 0.15);
 }
-/* Стили для badge с количеством отзывов */
+
 .badge.bg-primary {
     background-color: #3A7D44 !important;
     color: white !important;
     border: none;
 }
 
-/* Стили для ссылки "Перейти к удобрению" */
+
 .bi-link-45deg {
     color: #3A7D44 !important;
 }
 
-/* Стили для всей ссылки при наведении */
+
 a:hover .bi-link-45deg {
     color: #2c5530 !important;
 }
 
-/* Дополнительно: если хотите стилизовать текст ссылки */
+
 .text-decoration-none {
     color: #3A7D44 !important;
     font-weight: 500;
@@ -166,7 +166,7 @@ analysis-status {
     border: 1px solid #c8e6c9;
 }
 
-/* Адаптивность для мобильных */
+
 @media (max-width: 768px) {
     .nutrient-level {
         width: 50px;

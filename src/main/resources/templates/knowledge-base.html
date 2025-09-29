@@ -63,7 +63,6 @@
 <body>
 <section layout:fragment="content">
 
-    <!-- Шапка базы знаний -->
     <section class="kb-header">
         <div class="container">
             <div class="row">
@@ -71,7 +70,6 @@
                     <h1 class="display-4 fw-bold mb-4">База знаний</h1>
                     <p class="lead mb-4">Всеобъемлющая энциклопедия знаний о почве, удобрениях и современной агрономии</p>
 
-                    <!-- Поиск по базе знаний -->
                     <div class="search-box">
                         <div class="input-group input-group-lg">
                             <input type="text" class="form-control" placeholder="Поиск по базе знаний..." id="kbSearch">
@@ -85,245 +83,243 @@
         </div>
     </section>
 
-    <!-- Быстрая статистика -->
-    <section class="py-4">
-        <div class="container">
-            <div class="quick-stats">
-                <div class="row text-center">
-                    <div class="col-md-3">
-                        <h3 class="text-success fw-bold">150+</h3>
-                        <p class="mb-0">Статей и материалов</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h3 class="text-success fw-bold">50+</h3>
-                        <p class="mb-0">Экспертов-авторов</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h3 class="text-success fw-bold">20+</h3>
-                        <p class="mb-0">Тем и категорий</p>
-                    </div>
-                    <div class="col-md-3">
-                        <h3 class="text-success fw-bold">1000+</h3>
-                        <p class="mb-0">Терминов в глоссарии</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--    &lt;!&ndash; Быстрая статистика &ndash;&gt;-->
+<!--    <section class="py-4">-->
+<!--        <div class="container">-->
+<!--            <div class="quick-stats">-->
+<!--                <div class="row text-center">-->
+<!--                    <div class="col-md-3">-->
+<!--                        <h3 class="text-success fw-bold">150+</h3>-->
+<!--                        <p class="mb-0">Статей и материалов</p>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3">-->
+<!--                        <h3 class="text-success fw-bold">50+</h3>-->
+<!--                        <p class="mb-0">Экспертов-авторов</p>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3">-->
+<!--                        <h3 class="text-success fw-bold">20+</h3>-->
+<!--                        <p class="mb-0">Тем и категорий</p>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-3">-->
+<!--                        <h3 class="text-success fw-bold">1000+</h3>-->
+<!--                        <p class="mb-0">Терминов в глоссарии</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+<!--    &lt;!&ndash; Основное содержание &ndash;&gt;-->
+<!--    <section class="py-5">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+
+<!--                &lt;!&ndash; Боковая навигация &ndash;&gt;-->
+<!--                <div class="col-lg-3">-->
+<!--                    <div class="sticky-top" style="top: 100px;">-->
+<!--                        <h5 class="mb-3">Категории знаний</h5>-->
+<!--                        <nav class="nav nav-pills flex-column">-->
+<!--                            <a class="nav-link active" href="#soil-science">Почвоведение</a>-->
+<!--                            <a class="nav-link" href="#fertilizers">Удобрения</a>-->
+<!--                            <a class="nav-link" href="#crops">Растениеводство</a>-->
+<!--                            <a class="nav-link" href="#ecology">Экология</a>-->
+<!--                            <a class="nav-link" href="#technology">Технологии</a>-->
+<!--                            <a class="nav-link" href="#glossary">Глоссарий</a>-->
+<!--                            <a class="nav-link" href="#calculators">Калькуляторы</a>-->
+<!--                        </nav>-->
+
+<!--                        <div class="mt-4">-->
+<!--                            <h6>Популярные темы</h6>-->
+<!--                            <div class="d-flex flex-wrap gap-1">-->
+<!--                                <span class="badge bg-light text-dark">pH почвы</span>-->
+<!--                                <span class="badge bg-light text-dark">NPK</span>-->
+<!--                                <span class="badge bg-light text-dark">Компост</span>-->
+<!--                                <span class="badge bg-light text-dark">Сидераты</span>-->
+<!--                                <span class="badge bg-light text-dark">Дренаж</span>-->
+<!--                                <span class="badge bg-light text-dark">Мульчирование</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; Основной контент &ndash;&gt;-->
+<!--                <div class="col-lg-9">-->
+
+<!--                    &lt;!&ndash; Почвоведение &ndash;&gt;-->
+<!--                    <section id="soil-science" class="mb-5">-->
+<!--                        <h2 class="mb-4">🧪 Почвоведение</h2>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6 mb-4">-->
+<!--                                <div class="card category-card">-->
+<!--                                    <div class="card-body text-center">-->
+<!--                                        <i class="bi bi-droplet category-icon"></i>-->
+<!--                                        <h5>Химия почвы</h5>-->
+<!--                                        <p class="text-muted">Химический состав, pH, буферность, ионный обмен</p>-->
+<!--                                        <ul class="list-unstyled">-->
+<!--                                            <li><a href="#" class="text-decoration-none">• Кислотность почвы</a></li>-->
+<!--                                            <li><a href="#" class="text-decoration-none">• Минеральный состав</a></li>-->
+<!--                                            <li><a href="#" class="text-decoration-none">• Органическое вещество</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6 mb-4">-->
+<!--                                <div class="card category-card">-->
+<!--                                    <div class="card-body text-center">-->
+<!--                                        <i class="bi bi-grid-3x3 category-icon"></i>-->
+<!--                                        <h5>Физика почвы</h5>-->
+<!--                                        <p class="text-muted">Структура, текстура, плотность, водный режим</p>-->
+<!--                                        <ul class="list-unstyled">-->
+<!--                                            <li><a href="#" class="text-decoration-none">• Механический состав</a></li>-->
+<!--                                            <li><a href="#" class="text-decoration-none">• Водопроницаемость</a></li>-->
+<!--                                            <li><a href="#" class="text-decoration-none">• Аэрация</a></li>-->
+<!--                                        </ul>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </section>-->
+
+<!--                    &lt;!&ndash; Удобрения &ndash;&gt;-->
+<!--                    <section id="fertilizers" class="mb-5">-->
+<!--                        <h2 class="mb-4">🌱 Удобрения</h2>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-4 mb-4">-->
+<!--                                <div class="card topic-card">-->
+<!--                                    <div class="card-body">-->
+<!--                                        <h5>Минеральные удобрения</h5>-->
+<!--                                        <p class="text-muted">Азотные, фосфорные, калийные и комплексные удобрения</p>-->
+<!--                                        <div class="d-flex flex-wrap gap-1">-->
+<!--                                            <span class="badge bg-success">N</span>-->
+<!--                                            <span class="badge bg-info">P</span>-->
+<!--                                            <span class="badge bg-warning">K</span>-->
+<!--                                            <span class="badge bg-primary">NPK</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-4 mb-4">-->
+<!--                                <div class="card topic-card">-->
+<!--                                    <div class="card-body">-->
+<!--                                        <h5>Органические удобрения</h5>-->
+<!--                                        <p class="text-muted">Природные материалы для улучшения плодородия почвы</p>-->
+<!--                                        <div class="d-flex flex-wrap gap-1">-->
+<!--                                            <span class="badge bg-secondary">Компост</span>-->
+<!--                                            <span class="badge bg-secondary">Навоз</span>-->
+<!--                                            <span class="badge bg-secondary">Биогумус</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-4 mb-4">-->
+<!--                                <div class="card topic-card">-->
+<!--                                    <div class="card-body">-->
+<!--                                        <h5>Микроудобрения</h5>-->
+<!--                                        <p class="text-muted">Элементы, необходимые растениям в малых количествах</p>-->
+<!--                                        <div class="d-flex flex-wrap gap-1">-->
+<!--                                            <span class="badge bg-dark">Fe</span>-->
+<!--                                            <span class="badge bg-dark">Zn</span>-->
+<!--                                            <span class="badge bg-dark">Cu</span>-->
+<!--                                            <span class="badge bg-dark">B</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </section>-->
+
+<!--                    &lt;!&ndash; Глоссарий &ndash;&gt;-->
+<!--                    <section id="glossary" class="mb-5">-->
+<!--                        <h2 class="mb-4">📚 Глоссарий терминов</h2>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6">-->
+<!--                                <div class="card">-->
+<!--                                    <div class="card-body">-->
+<!--                                        <h5 class="card-title">А-Г</h5>-->
+<!--                                        <dl>-->
+<!--                                            <dt class="glossary-term" title="Показатель кислотности">pH</dt>-->
+<!--                                            <dd>Водородный показатель, мера кислотности или щелочности среды</dd>-->
+
+<!--                                            <dt class="glossary-term" title="Симбиотические бактерии">Азотфиксаторы</dt>-->
+<!--                                            <dd>Бактерии, преобразующие атмосферный азот в доступные формы</dd>-->
+
+<!--                                            <dt class="glossary-term" title="Водный режим">Влагоёмкость</dt>-->
+<!--                                            <dd>Способность почвы удерживать максимальное количество воды</dd>-->
+<!--                                        </dl>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6">-->
+<!--                                <div class="card">-->
+<!--                                    <div class="card-body">-->
+<!--                                        <h5 class="card-title">Д-П</h5>-->
+<!--                                        <dl>-->
+<!--                                            <dt class="glossary-term" title="Структура почвы">Дренаж</dt>-->
+<!--                                            <dd>Естественное или искусственное удаление избыточной воды</dd>-->
+
+<!--                                            <dt class="glossary-term" title="Питательные элементы">NPK</dt>-->
+<!--                                            <dd>Азот (N), Фосфор (P), Калий (K) - основные элементы питания</dd>-->
+
+<!--                                            <dt class="glossary-term" title="Органическое земледелие">Сидераты</dt>-->
+<!--                                            <dd>Растения, выращиваемые для incorporation в почву как удобрение</dd>-->
+<!--                                        </dl>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </section>-->
+
+<!--                    &lt;!&ndash; Калькуляторы &ndash;&gt;-->
+<!--                    <section id="calculators" class="mb-5">-->
+<!--                        <h2 class="mb-4">🧮 Полезные калькуляторы</h2>-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-md-6 mb-4">-->
+<!--                                <div class="card">-->
+<!--                                    <div class="card-body text-center">-->
+<!--                                        <i class="bi bi-calculator display-4 text-success mb-3"></i>-->
+<!--                                        <h5>Калькулятор удобрений</h5>-->
+<!--                                        <p class="text-muted">Расчет норм внесения удобрений под конкретные культуры</p>-->
+<!--                                        <a th:href="@{/calculators/fertilizer}" class="btn btn-success">Открыть калькулятор</a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-6 mb-4">-->
+<!--                                <div class="card">-->
+<!--                                    <div class="card-body text-center">-->
+<!--                                        <i class="bi bi-moisture display-4 text-info mb-3"></i>-->
+<!--                                        <h5>Калькулятор полива</h5>-->
+<!--                                        <p class="text-muted">Расчет потребности в воде для разных типов почв и культур</p>-->
+<!--                                        <a th:href="@{/calculators/watering}" class="btn btn-info">Открыть калькулятор</a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </section>-->
+
+<!--                    &lt;!&ndash; Быстрые ответы &ndash;&gt;-->
+<!--                    <div class="card bg-light border-0">-->
+<!--                        <div class="card-body text-center py-4">-->
+<!--                            <h4>Не нашли нужную информацию?</h4>-->
+<!--                            <p class="text-muted mb-3">Задайте вопрос нашим экспертам или предложите новую тему</p>-->
+<!--                            <div class="d-flex justify-content-center gap-2">-->
+<!--                                <a th:href="@{/faq}" class="btn btn-success">-->
+<!--                                    <i class="bi bi-question-circle me-2"></i>Частые вопросы-->
+<!--                                </a>-->
+<!--                                <a th:href="@{/contacts}" class="btn btn-outline-success">-->
+<!--                                    <i class="bi bi-chat-dots me-2"></i>Задать вопрос-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </div>-->
     </section>
 
-    <!-- Основное содержание -->
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-
-                <!-- Боковая навигация -->
-                <div class="col-lg-3">
-                    <div class="sticky-top" style="top: 100px;">
-                        <h5 class="mb-3">Категории знаний</h5>
-                        <nav class="nav nav-pills flex-column">
-                            <a class="nav-link active" href="#soil-science">Почвоведение</a>
-                            <a class="nav-link" href="#fertilizers">Удобрения</a>
-                            <a class="nav-link" href="#crops">Растениеводство</a>
-                            <a class="nav-link" href="#ecology">Экология</a>
-                            <a class="nav-link" href="#technology">Технологии</a>
-                            <a class="nav-link" href="#glossary">Глоссарий</a>
-                            <a class="nav-link" href="#calculators">Калькуляторы</a>
-                        </nav>
-
-                        <div class="mt-4">
-                            <h6>Популярные темы</h6>
-                            <div class="d-flex flex-wrap gap-1">
-                                <span class="badge bg-light text-dark">pH почвы</span>
-                                <span class="badge bg-light text-dark">NPK</span>
-                                <span class="badge bg-light text-dark">Компост</span>
-                                <span class="badge bg-light text-dark">Сидераты</span>
-                                <span class="badge bg-light text-dark">Дренаж</span>
-                                <span class="badge bg-light text-dark">Мульчирование</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Основной контент -->
-                <div class="col-lg-9">
-
-                    <!-- Почвоведение -->
-                    <section id="soil-science" class="mb-5">
-                        <h2 class="mb-4">🧪 Почвоведение</h2>
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <div class="card category-card">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-droplet category-icon"></i>
-                                        <h5>Химия почвы</h5>
-                                        <p class="text-muted">Химический состав, pH, буферность, ионный обмен</p>
-                                        <ul class="list-unstyled">
-                                            <li><a href="#" class="text-decoration-none">• Кислотность почвы</a></li>
-                                            <li><a href="#" class="text-decoration-none">• Минеральный состав</a></li>
-                                            <li><a href="#" class="text-decoration-none">• Органическое вещество</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="card category-card">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-grid-3x3 category-icon"></i>
-                                        <h5>Физика почвы</h5>
-                                        <p class="text-muted">Структура, текстура, плотность, водный режим</p>
-                                        <ul class="list-unstyled">
-                                            <li><a href="#" class="text-decoration-none">• Механический состав</a></li>
-                                            <li><a href="#" class="text-decoration-none">• Водопроницаемость</a></li>
-                                            <li><a href="#" class="text-decoration-none">• Аэрация</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Удобрения -->
-                    <section id="fertilizers" class="mb-5">
-                        <h2 class="mb-4">🌱 Удобрения</h2>
-                        <div class="row">
-                            <div class="col-md-4 mb-4">
-                                <div class="card topic-card">
-                                    <div class="card-body">
-                                        <h5>Минеральные удобрения</h5>
-                                        <p class="text-muted">Азотные, фосфорные, калийные и комплексные удобрения</p>
-                                        <div class="d-flex flex-wrap gap-1">
-                                            <span class="badge bg-success">N</span>
-                                            <span class="badge bg-info">P</span>
-                                            <span class="badge bg-warning">K</span>
-                                            <span class="badge bg-primary">NPK</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-4">
-                                <div class="card topic-card">
-                                    <div class="card-body">
-                                        <h5>Органические удобрения</h5>
-                                        <p class="text-muted">Природные материалы для улучшения плодородия почвы</p>
-                                        <div class="d-flex flex-wrap gap-1">
-                                            <span class="badge bg-secondary">Компост</span>
-                                            <span class="badge bg-secondary">Навоз</span>
-                                            <span class="badge bg-secondary">Биогумус</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-4">
-                                <div class="card topic-card">
-                                    <div class="card-body">
-                                        <h5>Микроудобрения</h5>
-                                        <p class="text-muted">Элементы, необходимые растениям в малых количествах</p>
-                                        <div class="d-flex flex-wrap gap-1">
-                                            <span class="badge bg-dark">Fe</span>
-                                            <span class="badge bg-dark">Zn</span>
-                                            <span class="badge bg-dark">Cu</span>
-                                            <span class="badge bg-dark">B</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Глоссарий -->
-                    <section id="glossary" class="mb-5">
-                        <h2 class="mb-4">📚 Глоссарий терминов</h2>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">А-Г</h5>
-                                        <dl>
-                                            <dt class="glossary-term" title="Показатель кислотности">pH</dt>
-                                            <dd>Водородный показатель, мера кислотности или щелочности среды</dd>
-
-                                            <dt class="glossary-term" title="Симбиотические бактерии">Азотфиксаторы</dt>
-                                            <dd>Бактерии, преобразующие атмосферный азот в доступные формы</dd>
-
-                                            <dt class="glossary-term" title="Водный режим">Влагоёмкость</dt>
-                                            <dd>Способность почвы удерживать максимальное количество воды</dd>
-                                        </dl>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Д-П</h5>
-                                        <dl>
-                                            <dt class="glossary-term" title="Структура почвы">Дренаж</dt>
-                                            <dd>Естественное или искусственное удаление избыточной воды</dd>
-
-                                            <dt class="glossary-term" title="Питательные элементы">NPK</dt>
-                                            <dd>Азот (N), Фосфор (P), Калий (K) - основные элементы питания</dd>
-
-                                            <dt class="glossary-term" title="Органическое земледелие">Сидераты</dt>
-                                            <dd>Растения, выращиваемые для incorporation в почву как удобрение</dd>
-                                        </dl>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Калькуляторы -->
-                    <section id="calculators" class="mb-5">
-                        <h2 class="mb-4">🧮 Полезные калькуляторы</h2>
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-calculator display-4 text-success mb-3"></i>
-                                        <h5>Калькулятор удобрений</h5>
-                                        <p class="text-muted">Расчет норм внесения удобрений под конкретные культуры</p>
-                                        <a th:href="@{/calculators/fertilizer}" class="btn btn-success">Открыть калькулятор</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-moisture display-4 text-info mb-3"></i>
-                                        <h5>Калькулятор полива</h5>
-                                        <p class="text-muted">Расчет потребности в воде для разных типов почв и культур</p>
-                                        <a th:href="@{/calculators/watering}" class="btn btn-info">Открыть калькулятор</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Быстрые ответы -->
-                    <div class="card bg-light border-0">
-                        <div class="card-body text-center py-4">
-                            <h4>Не нашли нужную информацию?</h4>
-                            <p class="text-muted mb-3">Задайте вопрос нашим экспертам или предложите новую тему</p>
-                            <div class="d-flex justify-content-center gap-2">
-                                <a th:href="@{/faq}" class="btn btn-success">
-                                    <i class="bi bi-question-circle me-2"></i>Частые вопросы
-                                </a>
-                                <a th:href="@{/contacts}" class="btn btn-outline-success">
-                                    <i class="bi bi-chat-dots me-2"></i>Задать вопрос
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- JavaScript для поиска и навигации -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Поиск по базе знаний
             const searchInput = document.getElementById('kbSearch');
             const contentSections = document.querySelectorAll('section');
 
@@ -340,7 +336,6 @@
                 });
             });
 
-            // Плавная прокрутка для навигации
             document.querySelectorAll('.nav-pills .nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();

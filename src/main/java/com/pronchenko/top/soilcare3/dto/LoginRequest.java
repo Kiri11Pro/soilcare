@@ -1,7 +1,6 @@
 package com.pronchenko.top.soilcare3.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+
 
 public class LoginRequest {
     private String username;

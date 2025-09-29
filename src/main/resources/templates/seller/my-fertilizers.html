@@ -13,7 +13,7 @@
   <div class="container mt-3">
 
 
-    <!-- Заголовок и кнопка -->
+
     <div class="d-flex justify-content-between align-items-center mb-3">
       <h4 class="mb-0 text-dark">
         <i class="bi bi-box me-2" style="color: #3A7D44;"></i>Мои товары
@@ -23,7 +23,7 @@
       </a>
     </div>
 
-    <!-- Список товаров -->
+
     <div th:if="${not #lists.isEmpty(fertilizers)}">
       <div class="row g-3">
         <div th:each="fert : ${fertilizers}" class="col-lg-4 col-md-6">
@@ -35,20 +35,16 @@
                 <span class="type-badge" th:text="${fert.fertilizerType?.displayName}">Тип</span>
               </div>
 
-              <!-- Описание -->
               <p class="text-muted small flex-grow-1"
                  th:text="${fert.description ?: 'Описание отсутствует'}">
                 Краткое описание товара...
               </p>
 
-              <!-- Цена и состав -->
               <div class="mt-auto">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                   <span class="price-tag" th:text="'₽' + ${#numbers.formatDecimal(fert.price, 0, 0)}">1500</span>
                                   </div>
 
-
-                <!-- Кнопки действий -->
                 <div class="d-flex gap-1">
                   <a th:href="@{/fertilizers/{id}(id=${fert.id})}"
                      class="btn btn-outline-primary btn-sm flex-fill">
@@ -65,7 +61,6 @@
         </div>
       </div>
 
-      <!-- Статистика -->
       <div class="card mt-3 bg-light border-0">
         <div class="card-body py-2">
           <div class="d-flex justify-content-between align-items-center text-muted small">
@@ -77,8 +72,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Пустое состояние -->
     <div th:if="${#lists.isEmpty(fertilizers)}" class="text-center py-4 empty-state">
       <i class="bi bi-box text-muted fs-1"></i>
       <h5 class="mt-2 text-muted">У вас пока нет товаров</h5>
@@ -87,7 +80,6 @@
         <i class="bi bi-plus-circle me-1"></i>Добавить первый товар
       </a>
 
-      <!-- Подсказки -->
       <div class="card mt-3 border-0 bg-light">
         <div class="card-body py-2">
           <div class="row text-muted small">

@@ -29,7 +29,7 @@ public class UserService {
 
     @Transactional
     public User saveUser(User user) {
-        // Базовая валидация
+
         if (user.getUsername() == null || user.getUsername().trim().isEmpty()) {
             throw new RuntimeException("Логин не может быть пустым");
         }
@@ -95,50 +95,5 @@ public class UserService {
         return userRepository.findAll();
     }
 
-//    @PostConstruct
-//    public void initDemoUsers() {
-//        try {
-//
-//            if (!userExists("user")) {
-//                User user = User.builder()
-//                        .username("user")
-//                        .password(passwordEncoder.encode("password"))
-//                        .email("user@example.com")
-//                        .firstName("Обычный")
-//                        .lastName("Пользователь")
-//                        .role(Role.USER)
-//                        .build();
-//                userRepository.save(user);
-//            }
-//
-//
-//            if (!userExists("seller")) {
-//                User seller = User.builder()
-//                        .username("seller")
-//                        .password(passwordEncoder.encode("password"))
-//                        .email("seller@example.com")
-//                        .firstName("Иван")
-//                        .lastName("Продавец")
-//                        .role(Role.SELLER)
-//                        .build();
-//                userRepository.save(seller);
-//            }
-//
-//
-//            if (!userExists("admin")) {
-//                User admin = User.builder()
-//                        .username("admin")
-//                        .password(passwordEncoder.encode("password"))
-//                        .email("admin@example.com")
-//                        .firstName("Администратор")
-//                        .lastName("Системы")
-//                        .role(Role.ADMIN)
-//                        .build();
-//                userRepository.save(admin);
-//            }
-//
-//        } catch (Exception e) {
-//            System.err.println("Ошибка при создании демо-пользователей: " + e.getMessage());
-//        }
-//    }
+
 }

@@ -79,7 +79,7 @@ public class ReviewService {
     public List<Review> getReviewsByUserId(Long userId) {
         return reviewRepository.findByUserId(userId);
     }
-    // ReviewService
+
     public Review getReviewById(Long id) {
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Отзыв не найден"));
@@ -89,7 +89,7 @@ public class ReviewService {
         reviewRepository.deleteById(id);
     }
 
-    // Метод для получения всех отзывов продавца (на товары и на самого продавца)
+
     public List<Review> getReviewsBySellerId(Long sellerId) {
         return reviewRepository.findBySellerIdOrFertilizerSellerId(sellerId, sellerId);
     }

@@ -43,22 +43,19 @@
       <div class="col-12 col-xl-10">
         <div class="card auth-card">
           <div class="card-body p-4 p-md-5">
-            <!-- Заголовок -->
+
             <div class="text-center mb-4">
               <img src="/images/soilcare-logo.png" alt="SoilCare" class="auth-logo">
               <h3 class="mt-2">Регистрация</h3>
               <p class="text-muted">Создайте новый аккаунт</p>
             </div>
 
-            <!-- Сообщения -->
             <div th:if="${error}" class="alert alert-danger full-width" role="alert">
               <i class="bi bi-exclamation-triangle me-2"></i>
               <span th:text="${error}"></span>
             </div>
 
-            <!-- Форма регистрации в 2 столбца -->
             <form th:action="@{/auth/register}" th:object="${user}" method="post" class="two-column-form">
-              <!-- Левый столбец -->
               <div class="left-column">
                 <h5 class="mb-3 text-primary">
                   <i class="bi bi-person me-2"></i>Личная информация
@@ -109,7 +106,6 @@
                 </div>
               </div>
 
-              <!-- Правый столбец -->
               <div class="right-column">
                 <h5 class="mb-3 text-primary">
                   <i class="bi bi-shield-lock me-2"></i>Учетные данные

@@ -38,7 +38,6 @@
 <body>
 <section layout:fragment="content">
 
-    <!-- Шапка FAQ -->
     <section class="faq-header">
         <div class="container">
             <div class="row">
@@ -46,7 +45,6 @@
                     <h1 class="display-4 fw-bold mb-4">Часто задаваемые вопросы</h1>
                     <p class="lead mb-4">Найдите ответы на самые популярные вопросы о работе нашей платформы</p>
 
-                    <!-- Поиск по FAQ -->
                     <div class="search-box">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Поиск по вопросам..." id="faqSearch">
@@ -60,13 +58,11 @@
         </div>
     </section>
 
-    <!-- Основное содержание -->
     <section class="py-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 mx-auto">
 
-                    <!-- Навигация по категориям -->
                     <div class="text-center mb-5">
                         <h4 class="mb-3">Категории вопросов</h4>
                         <div class="d-flex flex-wrap justify-content-center gap-2">
@@ -78,10 +74,8 @@
                         </div>
                     </div>
 
-                    <!-- Аккордеон с вопросами -->
                     <div class="accordion" id="faqAccordion">
 
-                        <!-- Анализ почвы -->
                         <h3 id="analysis" class="mt-5 mb-3">📊 Анализ почвы</h3>
                         <div class="accordion-item">
                             <h2 class="accordion-header">
@@ -123,7 +117,6 @@
                             </div>
                         </div>
 
-                        <!-- Удобрения -->
                         <h3 id="fertilizers" class="mt-5 mb-3">🌱 Удобрения</h3>
                         <div class="accordion-item">
                             <h2 class="accordion-header">
@@ -165,7 +158,6 @@
                             </div>
                         </div>
 
-                        <!-- Аккаунт -->
                         <h3 id="account" class="mt-5 mb-3">👤 Аккаунт и регистрация</h3>
                         <div class="accordion-item">
                             <h2 class="accordion-header">
@@ -185,7 +177,6 @@
                             </div>
                         </div>
 
-                        <!-- Технические вопросы -->
                         <h3 id="technical" class="mt-5 mb-3">💻 Технические вопросы</h3>
                         <div class="accordion-item">
                             <h2 class="accordion-header">
@@ -208,7 +199,6 @@
 
                     </div>
 
-                    <!-- Не нашли ответ? -->
                     <div class="card contact-card mt-5 border-success">
                         <div class="card-body text-center py-5">
                             <i class="bi bi-question-circle display-1 text-success mb-3"></i>
@@ -230,7 +220,6 @@
         </div>
     </section>
 
-    <!-- JavaScript для поиска -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('faqSearch');
@@ -245,7 +234,6 @@
 
                     if (question.includes(searchText) || answer.includes(searchText)) {
                         item.style.display = 'block';
-                        // Автоматически открываем найденные вопросы
                         const collapse = item.querySelector('.accordion-collapse');
                         if (!collapse.classList.contains('show')) {
                             new bootstrap.Collapse(collapse);

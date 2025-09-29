@@ -3,6 +3,9 @@ package com.pronchenko.top.soilcare3.repository;
 import com.pronchenko.top.soilcare3.entity.Fertilizer;
 import com.pronchenko.top.soilcare3.entity.FertilizerType;
 import com.pronchenko.top.soilcare3.entity.Season;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,4 +24,5 @@ public interface FertilizerRepository extends JpaRepository<Fertilizer, Long> {
     @Query("SELECT f FROM Fertilizer f WHERE f.fertilizerRating > 0 ORDER BY f.fertilizerRating DESC")
     List<Fertilizer> findTopByOrderByFertilizerRatingDesc(@Param("limit") int limit);
 
+    Page<Fertilizer> findAll(Specification<Fertilizer> spec, Pageable pageable);
 }
